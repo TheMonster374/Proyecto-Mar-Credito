@@ -1,0 +1,54 @@
+@startuml
+' Configuración estética general
+skinparam actor {
+    BackgroundColor<<Prestamista>> LightBlue
+    BorderColor<<Prestamista>> Blue
+    BackgroundColor<<Solicitante>> LightGreen
+    BorderColor<<Solicitante>> Green
+    BackgroundColor<<Administrador>> LightSalmon
+    BorderColor<<Administrador>> Red
+}
+
+skinparam usecase {
+    BackgroundColor GhostWhite
+    BorderColor DarkSlateGray
+}
+
+left to right direction
+
+' Definición de actores con estereotipos para el color
+actor "Prestamista" as P <<Prestamista>>
+actor "Solicitante" as S <<Solicitante>>
+actor "Administrador" as A <<Administrador>>
+
+package "Sistema BancoDiario" {
+  usecase "Registrar/Gestionar Perfil" as UC1
+  usecase "Generar acuerdos" as UC2
+  usecase "Administrar sistema" as UC3
+  usecase "Gestionar PQRS" as UC4
+  usecase "Gestionar préstamos" as UC5
+  usecase "Gestionar usuarios" as UC6
+  usecase "Gestionar pagos" as UC7
+}
+
+' --- Conexiones con colores ---
+
+' Azul para el Prestamista
+P -[#blue]-> UC1
+P -[#blue]-> UC2
+P -[#blue]-> UC4
+P -[#blue]-> UC5
+
+' Verde para el Solicitante
+UC1 <-[#green]- S
+UC4 <-[#green]- S
+UC5 <-[#green]- S
+UC7 <-[#green]- S
+
+' Rojo para el Administrador
+A -[#red]-> UC3
+A -[#red]-> UC4
+A -[#red]-> UC5
+A -[#red]-> UC6
+
+@enduml
