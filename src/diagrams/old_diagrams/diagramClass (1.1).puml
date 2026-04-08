@@ -1,0 +1,22 @@
+@startuml
+
+class Usuario 
+class Prestamista 
+class Solicitante 
+class Prestamo
+class Pago 
+class Acuerdo 
+class SistemaBanco 
+
+Usuario "1" -- "*" Prestamo
+Prestamo "1" *-- "*" Pago
+Prestamo "1" -- "1" Acuerdo
+
+Prestamista "1" -- "*" Prestamo
+Solicitante "1" -- "*" Prestamo
+
+SistemaBanco ..> Usuario
+SistemaBanco ..> Prestamo
+
+
+@enduml
