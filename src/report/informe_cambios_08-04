@@ -1,0 +1,55 @@
+08/04/2026
+Informe de Evolución y Mejora de Diagramas UML
+Este documento detalla los ajustes realizados para pasar de una versión preliminar a una versión 
+profesional, alineada con la lógica de un sistema de préstamos.
+
+1. Diagrama de Clases (Estructura de Datos)
+En la versión nueva (1.2), se aplicaron principios de Programación Orientada a Objetos (POO) para dar 
+robustez al diseño:
+
+Implementación de Herencia (Generalización): Antes, Prestamista y Solicitante eran clases aisladas. Ahora 
+heredan de la clase Usuario. Esto centraliza los atributos comunes y es más eficiente.
+
+Corrección de Multiplicidades: Se ajustaron las relaciones de negocio. Se definió que un Usuario (1) puede
+ tener muchos Préstamos () y muchos PQRS (), corrigiendo la restricción previa de 1 a 1.
+
+Uso de Agregación (o--): Se utilizó para representar que SistemaBanco gestiona colecciones (como ArrayLists)
+ de Usuario y Prestamo. Indica que el sistema "contiene" estos datos, pero no es dueño de su ciclo de vida
+ absoluto.
+
+Uso de Composición (*--): Se aplicó en las clases Pago y Acuerdo respecto a Prestamo. Esto garantiza que,
+ si un préstamo se elimina del sistema, sus pagos y su contrato legal asociado también desaparezcan, 
+manteniendo la integridad referencial.
+
+
+2. Diagrama de Casos de Uso (Funcionalidad)
+La mejora aquí se centró en la lógica de permisos y la claridad visual:
+
+Delimitación de Roles:
+
+Solicitante: Se le asignó exclusivamente la gestión de sus pagos, evitando que tuviera acceso a funciones 
+administrativas como "Gestionar usuarios".
+
+Prestamista: Se enfocó en la generación de acuerdos y validación de préstamos.
+
+Administrador: Ahora es el único con acceso a la administración del sistema y a la base total de usuarios.
+
+Consistencia de Entidades: Se añadió el caso de uso "Gestionar PQRS" para ser coherente con la nueva clase 
+incluida en el diagrama estructural.
+
+Mejora Estética y Semántica:
+
+Se reemplazaron las relaciones de "agregación/composición" (que no pertenecen a este diagrama) por líneas 
+de asociación dirigidas (-->).
+
+Se implementó un código de colores (Azul para Prestamista, Verde para Solicitante, Rojo para Administrador)
+ para facilitar la lectura rápida de responsabilidades.
+
+
+3. Justificación Técnica para el Profesor
+Si el profesor pregunta por la relación entre ambos, la respuesta clave es:
+
+"Los diagramas ahora son consistentes entre sí. El Usuario del diagrama de clases tiene su reflejo en 
+los Casos de Uso mediante las funciones de perfil y PQRS. Las relaciones de agregación del diagrama de 
+clases justifican técnicamente cómo el software almacenará las listas de datos (mediante ArrayLists) que 
+los actores manipulan en los casos de uso."
