@@ -36,6 +36,12 @@ Se utilizó para representar que `SistemaBanco` gestiona colecciones (como `Arra
 ### 🔶 Uso de Composición (`*--`)
 Se aplicó en las clases `Pago` y `Acuerdo` respecto a `Prestamo`. Esto garantiza que, si un préstamo se elimina del sistema, sus pagos y su contrato legal asociado también desaparezcan, manteniendo la integridad referencial.
 
+### 🖼️ Comparación Visual — Diagrama de Clases
+
+| Versión 1.1 (Anterior) | Versión 1.2 (Nueva) |
+|:---:|:---:|
+| ![Diagrama de Clases v1.1](../diagrams_png/old/Banco%20Diario%20Diagrama%20Clases%20(1.1).png) | ![Diagrama de Clases v1.2](../diagrams_png/Banco%20Diario%20Diagrama%20Clases%20(1.2).png) |
+
 ---
 
 ## 🎭 2. Diagrama de Casos de Uso (Funcionalidad)
@@ -59,6 +65,12 @@ Se añadió el caso de uso **"Gestionar PQRS"** para ser coherente con la nueva 
   - 🔵 Azul → Prestamista
   - 🟢 Verde → Solicitante
   - 🔴 Rojo → Administrador
+
+### 🖼️ Comparación Visual — Diagrama de Casos de Uso
+
+| Versión 1.1 (Anterior) | Versión 1.2 (Nueva) |
+|:---:|:---:|
+| ![Diagrama UC v1.1](../diagrams_png/old/Banco%20Diario%20Diagrama%20UC%20(1.1).png) | ![Diagrama UC v1.2](../diagrams_png/Banco%20Diario%20Diagrama%20UC%20(1.2).png) |
 
 ---
 
