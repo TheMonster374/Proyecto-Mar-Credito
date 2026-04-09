@@ -54,7 +54,7 @@ Actualmente se ha trabajado en:
   <b>Carlos Rodriguez</b> • 
   <b>Samuel Del Castillo</b> • 
   <b>Andriu Polanco</b> • 
-  <b>Matthews Pere</b>
+  <b>Matthews Perez</b>
 </p>
 
 ---
