@@ -20,7 +20,7 @@ Este documento establece los requerimientos mínimos de funcionamiento para cada
 
 ---
 
-## ⚙️ Especificación de Requerimientos (Mínimo 5 por caso)
+## ⚙️ Especificación de Requerimientos 
 
 A continuación, se detallan las reglas de negocio y funcionalidades técnicas que rigen cada interacción del sistema:
 
@@ -59,7 +59,7 @@ A continuación, se detallan las reglas de negocio y funcionalidades técnicas q
 * **RF5.4:** Herramientas de reversión de pagos para el administrador en caso de error.
 * **RF5.5:** Bloqueo de registros duplicados para evitar errores en la base de datos.
 
-### 🛡️ 6. Admin. Sistema y Usuarios
+### 🛡️ 6. Gestionar Usuarios y Administrar Sistema
 * **RF6.1:** Control de estado de cuentas (Activo/Inactivo) por el administrador.
 * **RF6.2:** Registro de logs (auditoría) de todas las acciones realizadas por administradores.
 * **RF6.3:** Configuración global de parámetros financieros (tasas de interés máximas).
