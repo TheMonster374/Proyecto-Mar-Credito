@@ -70,7 +70,7 @@ A continuación, se detallan las reglas de negocio y funcionalidades técnicas q
 
 ## 🎓 Justificación de la Evolución
 
-> *"Con la transición al nombre **Nexo**, el sistema deja de ser un simple registro diario para convertirse en una plataforma de intermediación financiera robusta. Los requerimientos aquí listados aseguran que la seguridad (mediante el cifrado de datos) y la integridad (mediante la gestión de pagos y acuerdos) sean los pilares técnicos del proyecto."*
+> *"Con la definición de estos requerimientos, el sistema evoluciona de un modelo visual a una arquitectura de software lista para el desarrollo. La estructura garantiza que la seguridad (mediante el cifrado de datos) y la integridad operativa (mediante la gestión automatizada de pagos y acuerdos) sean los pilares técnicos que den soporte a la lógica de negocio de préstamos."*
 
 ---
 
