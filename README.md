@@ -8,7 +8,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Estado-En%20Desarrollo-22C55E?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Versión-1.0-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Versión-1.3-blue?style=for-the-badge">
   <img src="https://img.shields.io/badge/Java-(Logica)-orange?style=for-the-badge&logo=java">
 </p>
 
@@ -34,7 +34,8 @@ Este proyecto nace como una solución académica enfocada en modelado de sistema
 
 Actualmente se ha trabajado en:
 - ✔️ Diagramas de casos de uso  
-- ✔️ Diagramas de clases  
+- ✔️ Diagramas de clases
+- ✔️ Requerimientos casos de uso
 - 🚧 Próximamente: implementación en Java (NetBeans)
 
 ---
