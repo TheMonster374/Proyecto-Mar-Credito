@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=16&duration=3500&pause=1000&color=4F46E5&center=true&vCenter=true&width=600&lines=Definici%C3%B3n+de+Requerimientos+Funcionales;Especificaci%C3%B3n+por+Caso+de+Uso;Sistema+de+Gesti%C3%B3n+Financiera+Nexo" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=16&duration=3500&pause=1000&color=4F46E5&center=true&vCenter=true&width=600&lines=Definici%C3%B3n+de+Requerimientos+Funcionales;Especificaci%C3%B3n+por+Caso+de+Uso;Sistema+de+Gesti%C3%B3n+Financiera+Banco+Diario" />
 </p>
 
 <p align="center">
