@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:4F46E5,100:22C55E&height=120&section=header&text=💰%20Banco%20Diario&fontSize=40&fontColor=ffffff" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:4F46E5,100:22C55E&height=200&section=header&text=💰%20Perla%20Finanzas&fontSize=40&fontColor=ffffff" />
 </p>
 
 <p align="center">
