@@ -50,13 +50,13 @@ Actualmente se ha trabajado en:
 
 ---
 
-## 👥 Integrantes
+## 👥 Integrantes y Roles
 
 <p align="center">
-  <b>Carlos Rodriguez</b> • 
-  <b>Samuel Del Castillo</b> • 
-  <b>Andriu Polanco</b> • 
-  <b>Matthews Perez</b>
+  <b>Carlos Rodriguez</b> — Gestión del repositorio (GitHub), estandarización de código y control de calidad (bugs)<br>
+  <b>Samuel Del Castillo</b> — Desarrollo de la interfaz gráfica (GUI) y apoyo en gestión del repositorio<br>
+  <b>Andriu Polanco</b> — Diseño e implementación de la lógica del sistema (backend) y apoyo en documentación<br>
+  <b>Matthews Perez</b> — Documentación del proyecto (.md) y apoyo en desarrollo del sistema
 </p>
 
 ---
