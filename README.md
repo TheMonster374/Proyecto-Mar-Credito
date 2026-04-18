@@ -36,7 +36,7 @@ Actualmente se ha trabajado en:
 - ✔️ Diagramas de casos de uso  
 - ✔️ Diagramas de clases
 - ✔️ Requerimientos casos de uso
-- ✔️ Cambio de nombre Banco Diario -> Mar Crédito
+- ✔️ Cambio de nombre Banco Diario -> Mar Crédito y asignacion de roles
 - 🚧 Próximamente: implementación en Java (NetBeans)
 
 ---
