@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:4F46E5,100:22C55E&height=200&section=header&text=💰%20Perla%20Finanzas&fontSize=40&fontColor=ffffff" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:4F46E5,100:22C55E&height=200&section=header&text=💰%20Mar%20Credito%20🌊&fontSize=40&fontColor=ffffff" />
 </p>
 
 <p align="center">
@@ -16,7 +16,7 @@
 
 ## 🧠 Descripción del Proyecto
 
-**Banco Diario** es una aplicación diseñada para conectar prestamistas y solicitantes de dinero, permitiendo gestionar préstamos a corto plazo de forma estructurada.
+**Mar Crédito** es una aplicación diseñada para conectar prestamistas y solicitantes de dinero, permitiendo gestionar préstamos a corto plazo de forma estructurada.
 
 El sistema permite:
 - 📊 Registrar montos, plazos e intereses
@@ -36,6 +36,7 @@ Actualmente se ha trabajado en:
 - ✔️ Diagramas de casos de uso  
 - ✔️ Diagramas de clases
 - ✔️ Requerimientos casos de uso
+- ✔️ Cambio de nombre Banco Diario -> Mar Crédito
 - 🚧 Próximamente: implementación en Java (NetBeans)
 
 ---
