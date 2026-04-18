@@ -46,7 +46,8 @@ Actualmente se ha trabajado en:
 - ☕ Java  
 - 🧰 NetBeans  
 - 📐 UML (Modelado del sistema)  
-- 🗂️ Git & GitHub  
+- 🗂️ Git & GitHub
+- 🤖 Apoyo asistido con IA
 
 ---
 
