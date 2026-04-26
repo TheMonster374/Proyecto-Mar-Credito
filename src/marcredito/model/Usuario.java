@@ -1,14 +1,23 @@
 package marcredito.model;
 
 public abstract class Usuario {
-    private String id;
-    private String nombre;
-    private String correo;
+    private final String id;
+    private final String nombre;
+    private final String correo;
 
     public Usuario(String id, String nombre, String correo) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+               "id='" + id + '\'' +
+               ", nombre='" + nombre + '\'' +
+               ", correo='" + correo + '\'' +
+               '}';
     }
 
     public String getId() { return id; }
