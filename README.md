@@ -41,7 +41,8 @@ Actualmente se ha trabajado en:
 - ✔️ Diagramas de clases
 - ✔️ Requerimientos casos de uso
 - ✔️ Cambio de nombre Banco Diario -> Mar Crédito y asignacion de roles
-- 🚧 Próximamente: implementación en Java (NetBeans)
+- ✔️ Creacion del logo Mar Crédito
+- ✔️ Creacion de clases: Usuario, Prestamista y Solicitante
 
 ---
 
