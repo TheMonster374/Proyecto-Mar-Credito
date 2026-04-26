@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:4F46E5,100:22C55E&height=200&section=header&text=💰%20Mar%20Credito%20🌊&fontSize=40&fontColor=ffffff" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo_dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/logo_light.png">
+    <img src="assets/logo_light.png" width="600">
+  </picture>
 </p>
 
 <p align="center">
