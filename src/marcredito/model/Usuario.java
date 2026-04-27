@@ -1,6 +1,5 @@
 package marcredito.model;
 
-
 public abstract class Usuario {
     private final String id;
     private final String nombre;
@@ -20,21 +19,21 @@ public abstract class Usuario {
     /**
      * @return the id
      */
-    protected String getId() {
+    public String getId() {
         return id;
     }    
 
     /**
      * @return the nombre
      */
-    protected String getNombre() {
+    public String getNombre() {
         return nombre;
     }
     
     /**
      * @return the correo
      */
-    protected String getCorreo() {
+    public String getCorreo() {
         return correo;
     }
     
