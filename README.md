@@ -12,7 +12,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Estado-En%20Desarrollo-22C55E?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Versión-1.3-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Versión-1.4-blue?style=for-the-badge">
   <img src="https://img.shields.io/badge/Java-(Logica)-orange?style=for-the-badge&logo=java">
 </p>
 
@@ -36,14 +36,22 @@ Este proyecto nace como una solución académica enfocada en modelado de sistema
 
 > ⚠️ Proyecto en fase inicial
 
-Actualmente se ha trabajado en:
-- ✔️ Diagramas de casos de uso  
-- ✔️ Diagramas de clases
-- ✔️ Requerimientos casos de uso
-- ✔️ Cambio de nombre Banco Diario -> Mar Crédito y asignacion de roles
-- ✔️ Creacion del logo Mar Crédito
-- ✔️ Creacion de clases: Usuario, Prestamista y Solicitante
+### ✅ Documentación y análisis
+- ✔️ Diagramas UML (Casos de uso y Clases)
+- ✔️ Requerimientos de casos de uso
+- ✔️ Renombre del proyecto (Banco Diario → Mar Crédito) y asignación de roles
 
+### ✅ Identidad visual
+- ✔️ Creación del logo de Mar Crédito (modo claro y modo oscuro)
+- ✔️ Integración del logo en el README
+
+### ✅ Implementación (Java)
+- ✔️ Estructura inicial del modelo de usuarios: `Usuario`, `Prestamista`, `Solicitante`
+
+### ⏳ Próximos pasos
+- ⏳ Implementación del modelo de dominio: `Prestamo`, `Pago`, `Acuerdo`, `PQRS`
+- ⏳ Lógica de negocio y flujo del sistema (registro, solicitud, pagos, acuerdos)
+  
 ---
 
 ## 🛠️ Tecnologías
