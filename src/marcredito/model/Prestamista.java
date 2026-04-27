@@ -18,7 +18,7 @@ public class Prestamista extends Usuario {
         return "Acuerdo: interes=" + interesPorcentaje + "%, plazo=" + plazoMeses + " meses";
     }
 
-    // Nota: Financiar un préstamo real requerirá un objeto Prestamo cuando exista en el modelo.
+    // Financiar un préstamo real requerirá un objeto Prestamo cuando exista en el modelo.
     public void financiarPrestamo(double monto) {
         System.out.println(getNombre() + " financiara un prestamo por: " + monto);
     }
