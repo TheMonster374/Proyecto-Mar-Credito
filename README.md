@@ -45,9 +45,12 @@ Este proyecto nace como una solución académica enfocada en modelado de sistema
 - ✔️ Creación del logo de Mar Crédito (modo claro y modo oscuro)
 - ✔️ Integración del logo en el README
 
-### ✅ Implementación (Java)
+### ✅ Implementación (base)
 - ✔️ Estructura inicial del modelo de usuarios: `Usuario`, `Prestamista`, `Solicitante`
+- ✔️ Métodos de rol en estado inicial (simulados), sin modelo completo aún
 
+> Nota: La implementación funcional completa (Préstamos, Pagos, Acuerdos y PQRS) aún está pendiente...
+  
 ### ⏳ Próximos pasos
 - ⏳ Implementación del modelo de dominio: `Prestamo`, `Pago`, `Acuerdo`, `PQRS`
 - ⏳ Lógica de negocio y flujo del sistema (registro, solicitud, pagos, acuerdos)
