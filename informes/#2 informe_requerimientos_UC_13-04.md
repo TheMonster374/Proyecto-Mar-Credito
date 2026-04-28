@@ -59,13 +59,19 @@ A continuación, se detallan las reglas de negocio y funcionalidades técnicas q
 * **RF5.4:** Herramientas de reversión de pagos para el administrador en caso de error.
 * **RF5.5:** Bloqueo de registros duplicados para evitar errores en la base de datos.
 
-### 🛡️ 6. Gestionar Usuarios y Administrar Sistema
-* **RF6.1:** Control de estado de cuentas (Activo/Inactivo) por el administrador.
-* **RF6.2:** Registro de logs (auditoría) de todas las acciones realizadas por administradores.
-* **RF6.3:** Configuración global de parámetros financieros (tasas de interés máximas).
-* **RF6.4:** Ejecución de copias de seguridad automáticas de la base de datos cada 24 horas.
-* **RF6.5:** Gestión de roles y permisos específicos para proteger información sensible.
+### 🛡️ 6. Gestionar Usuarios
+* **RF6.1:** El sistema debe permitir **activar** cuentas de usuario (cambiar estado a *Activo*).
+* **RF6.2:** El sistema debe permitir **desactivar** cuentas de usuario (cambiar estado a *Inactivo*).
+* **RF6.3:** El sistema debe permitir **asignar roles** a los usuarios (ej. Solicitante, Prestamista, Administrador).
+* **RF6.4:** El sistema debe permitir **modificar roles** previamente asignados a un usuario.
+* **RF6.5:** El sistema debe **restringir acciones y accesos** según el rol/permisos para proteger información sensible.
 
+### ⚙️ 7. Administrar Sistema
+* **RF7.1:** El sistema debe **registrar logs (auditoría)** de todas las acciones realizadas por administradores.
+* **RF7.2:** El sistema debe permitir **consultar/visualizar** los logs de auditoría para seguimiento y control.
+* **RF7.3:** El sistema debe permitir **configurar parámetros globales** del sistema (ej. tasas de interés máximas).
+* **RF7.4:** El sistema debe permitir **actualizar y mantener vigentes** los parámetros globales configurados por el administrador.
+* **RF7.5:** El sistema debe ejecutar **copias de seguridad automáticas** de la base de datos cada 24 horas.
 ---
 
 ## 🎓 Justificación de la Evolución
