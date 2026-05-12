@@ -1,24 +1,31 @@
 package marcredito.model;
 
+/**
+ * Clase que representa un prestamista (hereda Usuario).
+ */
 public class Prestamista extends Usuario {
 
     public Prestamista(String id, String nombre, String correo) {
         super(id, nombre, correo);
     }
 
-    // Este método es un avance de estructura.
-    // Cuando se implemente el modelo (Prestamo/Acuerdo), aquí se validará y gestionará la financiación real.
+    /**
+     * Método básico para validación simple del monto.
+     */
     public boolean puedeFinanciar(double monto) {
         return monto > 0;
     }
 
-    // Aún no existe la clase Acuerdo en el modelo.
-    // Este método solo representa la responsabilidad del prestamista.
+    /**
+     * Método para mostrar cómo sería un acuerdo (texto).
+     */
     public String generarAcuerdo(double interesPorcentaje, int plazoMeses) {
         return "Acuerdo: interes=" + interesPorcentaje + "%, plazo=" + plazoMeses + " meses";
     }
 
-    // Financiar un préstamo real requerirá un objeto Prestamo cuando exista en el modelo.
+    /**
+     * Método básico para simular la financiación de un préstamo.
+     */
     public void financiarPrestamo(double monto) {
         System.out.println(getNombre() + " financiara un prestamo por: " + monto);
     }

@@ -1,10 +1,16 @@
 package marcredito.model;
 
+/**
+ * Clase general de usuario, base para herencia.
+ */
 public abstract class Usuario {
     private final String id;
     private final String nombre;
     private final String correo;
 
+    /**
+     * Constructor de usuario.
+     */
     public Usuario(String id, String nombre, String correo) {
         this.id = id;
         this.nombre = nombre;
