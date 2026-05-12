@@ -2,18 +2,34 @@ package marcredito.model;
 
 public class Solicitante extends Usuario {
 
+    /**
+     * Crea un solicitante.
+     *
+     * @param id identificador
+     * @param nombre nombre del solicitante
+     * @param correo correo del solicitante
+     */
     public Solicitante(String id, String nombre, String correo) {
         super(id, nombre, correo);
     }
 
-    // Este método es un avance de estructura.
-    // Cuando exista la clase Prestamo, se creará y asociará el préstamo real al solicitante.
+    /**
+     * Genera una solicitud de préstamo.
+     *
+     * @param monto monto solicitado
+     * @param plazoMeses plazo en meses
+     * @return texto de solicitud
+     */
     public String solicitarPrestamo(double monto, int plazoMeses) {
         return "Solicitud: monto=" + monto + ", plazo=" + plazoMeses + " meses";
     }
 
-    // Cuando exista la clase Pago (y la relación con Prestamo), este método registrará pagos reales.
+    /**
+     * Imprime un mensaje de pago de cuota.
+     *
+     * @param valor valor de la cuota
+     */
     public void pagarCuota(double valor) {
-        System.out.println(getNombre() + " pagara una cuota de: " + valor);
+        System.out.println(getNombre() + " pagará una cuota de: " + valor);
     }
 }
