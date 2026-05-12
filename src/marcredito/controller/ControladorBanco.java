@@ -67,8 +67,7 @@ public class ControladorBanco {
      * @param idSolicitante ID del solicitante
      * @param idPrestamista ID del prestamista
      */
-    public void crearPrestamo(double monto, int plazoMeses, double interes,
-                              String idSolicitante, String idPrestamista) {
+    public void crearPrestamo(double monto, int plazoMeses, double interes, String idSolicitante, String idPrestamista) {
 
         Usuario uSol = sistema.buscarUsuarioPorId(idSolicitante);
         Usuario uPre = sistema.buscarUsuarioPorId(idPrestamista);
@@ -76,8 +75,9 @@ public class ControladorBanco {
         if (!(uSol instanceof Solicitante)) return;
         if (!(uPre instanceof Prestamista)) return;
 
-        Prestamo prestamo = new Prestamo(monto, plazoMeses, interes,
-                (Solicitante) uSol, (Prestamista) uPre);
+        Acuerdo acuerdo = new Acuerdo(interes, plazoMeses);
+
+        Prestamo prestamo = new Prestamo(monto, acuerdo, (Solicitante) uSol, (Prestamista) uPre);
 
         sistema.agregarPrestamo(prestamo);
     }
