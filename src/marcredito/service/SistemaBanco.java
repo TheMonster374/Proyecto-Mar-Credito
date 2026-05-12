@@ -19,6 +19,20 @@ public class SistemaBanco {
     }
 
     /**
+     * Busca un usuario dentro del sistema por su ID.
+     * @param id ID del usuario
+     * @return el Usuario si se encuentra; si no se encuentra, retorna null
+     */
+    public Usuario buscarUsuarioPorId(String id) {
+        for (Usuario u : usuarios) {
+            if (u.getId().equals(id)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Agrega un préstamo al sistema.
      *
      * @param prestamo préstamo a registrar
