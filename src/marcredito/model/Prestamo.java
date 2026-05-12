@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Prestamo {
-    Acuerdo acuerdo;
+    private final Acuerdo acuerdo;
     private final double monto;       
     private final Solicitante solicitante;
     private final Prestamista prestamista;
