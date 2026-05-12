@@ -29,6 +29,9 @@ public class Prestamo {
         pagos.add(pago);
     }
 
+    /**
+     * Calcula el total a pagar usando interés simple sobre el monto inicial.
+     */
     public double calcularTotalPagar() {
         return monto + (monto * interes / 100);
     }
