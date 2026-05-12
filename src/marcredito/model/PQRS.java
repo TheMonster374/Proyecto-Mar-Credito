@@ -60,7 +60,7 @@ public class PQRS {
                 System.out.println("Sugerencia recibida");
                 break;
             default:
-                System.out.println("Tipo no válido");
+                System.out.println("Tipo no válido: " + this.tipo);
         }
     }
 }

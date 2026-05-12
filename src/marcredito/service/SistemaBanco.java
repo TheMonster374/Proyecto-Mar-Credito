@@ -28,7 +28,7 @@ public class SistemaBanco {
         List<Prestamo> resultado = new ArrayList<Prestamo>();
 
         for (Prestamo prestamo : prestamos) {
-            if (prestamo.getSolicitante().equals(usuario)) {
+            if (prestamo.getSolicitante().getId().equals(usuario.getId())) {
                 resultado.add(prestamo);
             }
         }
