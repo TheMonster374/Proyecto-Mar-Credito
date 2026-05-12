@@ -40,6 +40,6 @@ public class Prestamista extends Usuario {
      * @param monto monto a financiar
      */
     public void financiarPrestamo(double monto) {
-        System.out.println(getNombre() + " financiara un prestamo por: " + monto);
+        System.out.println(getNombre() + " financiará un préstamo por: " + monto);
     }
 }

@@ -30,6 +30,6 @@ public class Solicitante extends Usuario {
      * @param valor valor de la cuota
      */
     public void pagarCuota(double valor) {
-        System.out.println(getNombre() + " pagara una cuota de: " + valor);
+        System.out.println(getNombre() + " pagará una cuota de: " + valor);
     }
 }
