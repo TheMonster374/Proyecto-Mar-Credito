@@ -38,7 +38,7 @@ Se aplicó en las clases `Pago` y `Acuerdo` respecto a `Prestamo`. Esto garantiz
 
 ### 🖼️ Comparación Visual — Diagrama de Clases
 
-> Nota: En v1.2 los archivos ya usan el nombre del proyecto renombrado (**Mar Crédito**), mientras que v1.1 conserva el nombre histórico (**Banco Diario**).
+> Nota: En v1.2 los archivos ya usan el nombre del proyecto renombrado (**Mar Credito**), mientras que v1.1 conserva el nombre histórico (**Banco Diario**).
 
 | Versión 1.1 (Anterior) | Versión 1.2 (Nueva) |
 |:---:|:---:|
