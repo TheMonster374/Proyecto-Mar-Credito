@@ -12,7 +12,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Estado-En%20Desarrollo-22C55E?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Versión-1.4-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Versión-1.5-blue?style=for-the-badge">
   <img src="https://img.shields.io/badge/Java-(Logica)-orange?style=for-the-badge&logo=java">
 </p>
 
@@ -55,6 +55,14 @@ Este proyecto nace como una solución académica enfocada en modelado de sistema
 - ⏳ Implementación del modelo de dominio: `Prestamo`, `Pago`, `Acuerdo`, `PQRS`
 - ⏳ Lógica de negocio y flujo del sistema (registro, solicitud, pagos, acuerdos)
   
+---
+
+## 🔖 Versionado
+
+- **Versión actual:** `1.5`
+- Los diagramas vigentes **no incluyen la versión en el nombre del archivo**.
+- Los snapshots históricos se organizan por versión en carpetas dentro de `diagrams_history/`.
+
 ---
 
 ## 🛠️ Tecnologías

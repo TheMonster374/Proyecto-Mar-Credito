@@ -40,7 +40,7 @@ Se aplicó en las clases `Pago` y `Acuerdo` respecto a `Prestamo`. Esto garantiz
 
 | Versión 1.1 (Anterior) | Versión 1.2 (Nueva) |
 |:---:|:---:|
-| ![Diagrama de Clases v1.1](../diagrams_png/old/Banco%20Diario%20Diagrama%20Clases%20(1.1).png) | ![Diagrama de Clases v1.2](../diagrams_png/Banco%20Diario%20Diagrama%20Clases%20(1.2).png) |
+| ![Diagrama de Clases v1.1](../diagrams_history/1.1/diagrams_png/Banco%20Diario%20Diagrama%20Clases%20(1.1).png) | ![Diagrama de Clases v1.2](../diagrams_history/1.2/diagrams_png/Mar%20Credito%20Diagrama%20Clases%20(1.2).png) |
 
 ---
 
@@ -70,7 +70,7 @@ Se añadió el caso de uso **"Gestionar PQRS"** para ser coherente con la nueva 
 
 | Versión 1.1 (Anterior) | Versión 1.2 (Nueva) |
 |:---:|:---:|
-| ![Diagrama UC v1.1](../diagrams_png/old/Banco%20Diario%20Diagrama%20UC%20(1.1).png) | ![Diagrama UC v1.2](../diagrams_png/Banco%20Diario%20Diagrama%20UC%20(1.2).png) |
+| ![Diagrama UC v1.1](../diagrams_history/1.1/diagrams_png/Banco%20Diario%20Diagrama%20UC%20(1.1).png) | ![Diagrama UC v1.2](../diagrams_history/1.2/diagrams_png/Mar%20Credito%20Diagrama%20UC%20(1.2).png) |
 
 ---
 
