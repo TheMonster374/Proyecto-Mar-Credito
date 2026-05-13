@@ -1,0 +1,29 @@
+@startuml
+class SistemaBanco
+class Prestamista
+class Solicitante
+class Usuario
+class Prestamo
+class Pago
+class Acuerdo
+class PQRS
+
+' Las colecciones (ArrayLists) se representan así:
+SistemaBanco "1" o-- "*" Usuario
+SistemaBanco "1" o-- "*" Prestamo
+
+' Relaciones de negocio (Un usuario tiene muchos préstamos)
+Prestamista "1" -- "*" Prestamo : financia
+Solicitante "1" -- "*" Prestamo : solicita
+
+' Herencia 
+Usuario <|-- Prestamista 
+Usuario <|-- Solicitante
+
+' El usuario genera PQRS (ArrayList de PQRS en Usuario)
+Usuario "1" -- "*" PQRS
+
+' Composición (El préstamo es dueño de sus pagos y su acuerdo)
+Prestamo "1" *-- "*" Pago
+Prestamo "1" *-- "1" Acuerdo
+@enduml
