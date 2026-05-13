@@ -38,6 +38,8 @@ Se aplicó en las clases `Pago` y `Acuerdo` respecto a `Prestamo`. Esto garantiz
 
 ### 🖼️ Comparación Visual — Diagrama de Clases
 
+> Nota: En v1.2 los archivos ya usan el nombre del proyecto renombrado (**Mar Crédito**), mientras que v1.1 conserva el nombre histórico (**Banco Diario**).
+
 | Versión 1.1 (Anterior) | Versión 1.2 (Nueva) |
 |:---:|:---:|
 | ![Diagrama de Clases v1.1](../diagrams_history/1.1/diagrams_png/Banco%20Diario%20Diagrama%20Clases%20(1.1).png) | ![Diagrama de Clases v1.2](../diagrams_history/1.2/diagrams_png/Mar%20Credito%20Diagrama%20Clases%20(1.2).png) |
