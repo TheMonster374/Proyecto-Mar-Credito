@@ -1,7 +1,6 @@
 package marcredito.view;
 
 import java.awt.Color;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import marcredito.controller.ControladorBanco;
 import marcredito.model.Usuario;
@@ -41,7 +40,7 @@ public class Login extends javax.swing.JFrame {
 
         panelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblLogo.setIcon(cargarIcono("/Imagenes/Mar Credito logo 2.0.png"));
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Mar Credito logo 2.0.png")));
         panelPrincipal.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 220, 70));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24));
@@ -76,13 +75,13 @@ public class Login extends javax.swing.JFrame {
         });
         panelPrincipal.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 280, 40));
 
-        lblIconoUsuario.setIcon(cargarIcono("/Imagenes/user.png"));
+        lblIconoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/user.png")));
         panelPrincipal.add(lblIconoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, 40, 40));
 
-        lblIconoSeguro.setIcon(cargarIcono("/Imagenes/verified.png"));
+        lblIconoSeguro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/verified.png")));
         panelPrincipal.add(lblIconoSeguro, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 290, 40, 40));
 
-        lblFondo.setIcon(cargarIcono("/Imagenes/FONDO GUI.png"));
+        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FONDO GUI.png")));
         panelPrincipal.add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 360));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -150,10 +149,6 @@ public class Login extends javax.swing.JFrame {
         }
     }
 
-    private ImageIcon cargarIcono(String ruta) {
-        java.net.URL recurso = getClass().getResource(ruta);
-        return recurso != null ? new ImageIcon(recurso) : null;
-    }
 
     // Variables declaration - do not modify
     private javax.swing.JButton btnIngresar;
