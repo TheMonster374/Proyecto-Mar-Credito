@@ -36,6 +36,15 @@ Este proyecto nace como una solución académica enfocada en modelado de sistema
 
 > ⚠️ Proyecto en fase inicial
 
+### 📁 Estructura actual
+- Código: `src/`
+- Recursos GUI: `src/Imagenes/`
+- Documentación: `docs/`
+  - Diagramas fuente: `docs/diagrams/`
+  - Diagramas exportados (PNG): `docs/diagrams_png/`
+  - Historial de diagramas: `docs/diagrams_history/`
+  - Informes: `docs/informes/`
+
 ### ✅ Documentación y análisis
 - ✔️ Diagramas UML (Casos de uso y Clases)
 - ✔️ Requerimientos de casos de uso
@@ -61,7 +70,7 @@ Este proyecto nace como una solución académica enfocada en modelado de sistema
 
 - **Versión actual del proyecto:** `1.5`
 - Los diagramas vigentes **no incluyen la versión en el nombre del archivo**.
-- Los snapshots históricos se guardan por carpeta dentro de `diagrams_history/`.
+- Los snapshots históricos se guardan por carpeta dentro de `docs/diagrams_history/`.
 
 ---
 
