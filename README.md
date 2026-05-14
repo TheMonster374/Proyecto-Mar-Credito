@@ -70,8 +70,7 @@ Este proyecto nace como una solución académica enfocada en modelado de sistema
 ## 🔖 Versionado
 
 - **Versión actual del proyecto:** `1.5`
-- Los diagramas vigentes **no incluyen la versión en el nombre del archivo**.
-- Los snapshots históricos se guardan por carpeta dentro de `docs/diagrams_history/`.
+- Los snapshots históricos e informes de avance se guardan por carpeta dentro de `docs`.
 
 ---
 
