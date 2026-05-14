@@ -34,7 +34,7 @@ Este proyecto nace como una solución académica enfocada en modelado de sistema
 
 ## 🚀 Estado Actual
 
-> ⚠️ Proyecto en fase inicial
+> 🟡 Proyecto en fase de integración (MVP funcional) — versión 1.5
 
 ### 📁 Estructura actual
 - Código: `src/`
@@ -51,19 +51,20 @@ Este proyecto nace como una solución académica enfocada en modelado de sistema
 - ✔️ Renombre del proyecto (Banco Diario → Mar Crédito) y asignación de roles
 
 ### ✅ Identidad visual
-- ✔️ Creación del logo de Mar Crédito (modo claro y modo oscuro)
+- ✔️ Creación del logo de Mar Crédito
 - ✔️ Integración del logo en el README
 
-### ✅ Implementación (base)
-- ✔️ Estructura inicial del modelo de usuarios: `Usuario`, `Prestamista`, `Solicitante`
-- ✔️ Métodos de rol en estado inicial (simulados), sin modelo completo aún
+### ✅ Implementación actual
+- ✔️ Modelo de dominio creado: `Usuario`, `Solicitante`, `Prestamista`, `Prestamo`, `Pago`, `Acuerdo`, `PQRS`
+- ✔️ Capas base implementadas: `service` (`SistemaBanco`) y `controller` (`ControladorBanco`)
+- ✔️ Punto de entrada del proyecto: `App`
+- ✔️ Login integrado a la lógica (autenticación por ID con usuarios de prueba)
 
-> Nota: La implementación funcional completa (Préstamos, Pagos, Acuerdos y PQRS) aún está pendiente...
-  
 ### ⏳ Próximos pasos
-- ⏳ Implementación del modelo de dominio: `Prestamo`, `Pago`, `Acuerdo`, `PQRS`
-- ⏳ Lógica de negocio y flujo del sistema (registro, solicitud, pagos, acuerdos)
-  
+- ⏳ Implementar menús por rol (Solicitante / Prestamista) y navegación posterior al login
+- ⏳ Completar los flujos de casos de uso en la interfaz (solicitud de préstamo, pagos, acuerdos, PQRS)
+- ⏳ Mejoras de validación (IDs repetidos, campos vacíos, mensajes de error)
+- ⏳ (Opcional) Persistencia de datos / almacenamiento (archivos o BD) si se requiere
 ---
 
 ## 🔖 Versionado
