@@ -6,6 +6,7 @@ package marcredito.view;
 
 import marcredito.controller.ControladorBanco;
 
+
 /**
  *
  * @author User
@@ -22,12 +23,34 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         this.controller = null;   // para el diseñador
         initComponents();
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            new Register(controller).setVisible(true);
+            dispose();
+            }
+        });
     }
 
     public Login(ControladorBanco controller) {
         this.controller = controller;
         initComponents();
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            new Register(controller).setVisible(true);
+            dispose();
+            }
+        });
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,7 +74,6 @@ public class Login extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         ingresoButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -59,6 +81,8 @@ public class Login extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         BarritaAzul = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
 
@@ -89,7 +113,7 @@ public class Login extends javax.swing.JFrame {
         comproLabel.setForeground(new java.awt.Color(102, 102, 102));
         comproLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/leaf.png"))); // NOI18N
         comproLabel.setText("  COMPROMETIDOS");
-        BarritaAbajo.add(comproLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, 230, 70));
+        BarritaAbajo.add(comproLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, 250, 70));
 
         Background.add(BarritaAbajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 1010, 90));
 
@@ -99,7 +123,7 @@ public class Login extends javax.swing.JFrame {
         FondoLoginDentro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         idTxt.setForeground(new java.awt.Color(153, 153, 153));
-        idTxt.setText("Ingresar ID de la cuenta");
+        idTxt.setText("Ingresar usuario de la cuenta");
         idTxt.setBorder(null);
         idTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         idTxt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -141,11 +165,6 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText("¡Bienvenido de nuevo!");
         FondoLoginDentro.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 260, -1));
 
-        jLabel3.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 204, 255));
-        jLabel3.setText("¿Olvidaste tu contraseña? ");
-        FondoLoginDentro.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 170, -1));
-
         jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(153, 153, 153));
         jLabel4.setText("Contraseña ");
@@ -167,22 +186,47 @@ public class Login extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel9.setText("ID de usuario");
+        jLabel9.setText("Usuario");
         FondoLoginDentro.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
 
         Background.add(FondoLoginDentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 390, 460));
 
         BarritaAzul.setBackground(new java.awt.Color(153, 255, 255));
 
+        jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel3.setText("Registro");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+
+        jLabel11.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel11.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel11.setText("¿Todavia no tienes una cuenta?");
+        jLabel11.setToolTipText("");
+
         javax.swing.GroupLayout BarritaAzulLayout = new javax.swing.GroupLayout(BarritaAzul);
         BarritaAzul.setLayout(BarritaAzulLayout);
         BarritaAzulLayout.setHorizontalGroup(
             BarritaAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BarritaAzulLayout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addGap(70, 70, 70))
         );
         BarritaAzulLayout.setVerticalGroup(
             BarritaAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGroup(BarritaAzulLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(BarritaAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         Background.add(BarritaAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 460, 390, 60));
@@ -213,7 +257,7 @@ public class Login extends javax.swing.JFrame {
     }                                     
 
     private void idTxtMousePressed(java.awt.event.MouseEvent evt) {                                   
-        if (idTxt.getText().equals("Ingresar ID de la cuenta")) {
+        if (idTxt.getText().equals("Ingresar usuario de la cuenta")) {
         idTxt.setText("");
     }
     }                                  
@@ -254,6 +298,10 @@ public class Login extends javax.swing.JFrame {
     private void passTxtActionPerformed(java.awt.event.ActionEvent evt) {                                        
         // TODO add your handling code here:
     }                                       
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {                                     
+        
+    }                                    
     
     /**
      * @param args the command line arguments
@@ -292,6 +340,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField idTxt;
     private javax.swing.JButton ingresoButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
