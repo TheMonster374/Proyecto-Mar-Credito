@@ -8,7 +8,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Fecha-01%2F05%2F2026-4F46E5?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Versión-1.4-22C55E?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Versión-1.4.1-22C55E?style=for-the-badge">
   <img src="https://img.shields.io/badge/Tipo-Modelo%20del%20Sistema-orange?style=for-the-badge">
 </p>
 
