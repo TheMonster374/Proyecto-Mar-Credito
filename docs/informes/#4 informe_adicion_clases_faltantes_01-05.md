@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:4F46E5,100:22C55E&height=120&section=header&text=📋%20Informe%201%20-%20Clases%20Base%20del%20Dominio&fontSize=33&fontColor=ffffff" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:4F46E5,100:22C55E&height=120&section=header&text=📋%20Informe%20de%20Clases%20Base%20del%20Dominio&fontSize=33&fontColor=ffffff" />
 </p>
 
 <p align="center">
