@@ -47,10 +47,10 @@ public class SistemaBanco {
      * @param usuario usuario a consultar
      * @return lista de préstamos del usuario
      */
-    public List<Prestamo> obtenerPrestamosDeUsuario(Usuario usuario) {
+       public List<Prestamo> obtenerPrestamosDeUsuario(Usuario usuario) {
         List<Prestamo> prestamosUsuario = new ArrayList<>();
         for (Prestamo prestamo : prestamos) {
-            if (prestamo.getSolicitante().equals(usuario)) {
+            if (prestamo.getSolicitante().getId().equals(usuario.getId())) {
                 prestamosUsuario.add(prestamo);
             }
         }
