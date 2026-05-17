@@ -248,6 +248,12 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_passTxtMousePressed
 
     private void ingresoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoButtonActionPerformed
+        if (controller == null) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Ejecuta el proyecto desde App (no desde el main de Register).");
+            return;
+        }
+
         String nombre = idTxt.getText().trim();
 
         String pass = new String(passTxt.getPassword());
@@ -266,7 +272,7 @@ public class Register extends javax.swing.JFrame {
         }
 
         // Generar ID automático
-        String id = "MC" + ((int)(Math.random() * 90) + 10);
+        String id = generarIdUnico();
 
         // Correo ficticio temporal
         String correo = nombre.replace(" ", "").toLowerCase() + "@mail.com";
@@ -281,6 +287,14 @@ public class Register extends javax.swing.JFrame {
         new Login(controller).setVisible(true);
         dispose();
     }//GEN-LAST:event_ingresoButtonActionPerformed
+
+    private String generarIdUnico() {
+        String id = "MC" + ((int) (Math.random() * 90) + 10);
+        while (controller.buscarUsuarioPorId(id) != null) {
+            id = "MC" + ((int) (Math.random() * 90) + 10);
+        }
+        return id;
+    }
 
     private void passTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passTxtActionPerformed
         // TODO add your handling code here:

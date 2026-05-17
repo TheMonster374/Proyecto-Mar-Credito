@@ -1,6 +1,7 @@
 package marcredito;
 
 import marcredito.controller.ControladorBanco;
+import marcredito.model.Prestamo;
 import marcredito.model.Usuario;
 import marcredito.persistence.Persistencia;
 import marcredito.service.SistemaBanco;
@@ -12,18 +13,21 @@ public class App {
         SistemaBanco sistema = new SistemaBanco();
         ControladorBanco controller = new ControladorBanco(sistema);
 
+        for (Usuario usuario : Persistencia.cargarUsuarios()) {
+            sistema.agregarUsuario(usuario);
+        }
+
+        if (controller.buscarUsuarioPorId("P1") == null) {
+            controller.registrarPrestamista("P1", "Prestamista General", "prestamista@mail.com");
+        }
+
+        for (Prestamo prestamo : Persistencia.cargarPrestamos(sistema.getUsuarios())) {
+            sistema.agregarPrestamo(prestamo);
+        }
+
         java.awt.EventQueue.invokeLater(() -> {
             new Login(controller).setVisible(true);
         });        
-
-        // Cargar usuarios
-         for (Usuario u : Persistencia.cargarUsuarios()) {
-             sistema.agregarUsuario(u);
-         }
-    
-        // Usuarios de prueba (para login por ID)
-        controller.registrarSolicitante("S1", "Ana", "ana@mail.com");
-        //controller.registrarPrestamista("P1", "Carlos", "carlos@mail.com");
     }    
     
 }
