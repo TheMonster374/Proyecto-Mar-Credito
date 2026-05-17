@@ -1,18 +1,9 @@
 package marcredito.persistence;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import marcredito.model.Acuerdo;
-import marcredito.model.Prestamista;
-import marcredito.model.Prestamo;
-import marcredito.model.Solicitante;
-import marcredito.model.Usuario;
+import marcredito.model.*;
 
 public class Persistencia {
 
