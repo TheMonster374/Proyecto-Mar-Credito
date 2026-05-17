@@ -89,6 +89,11 @@ public class ControladorBanco {
         Prestamo prestamo = new Prestamo(monto, acuerdo, (Solicitante) uSol, (Prestamista) uPre);
 
         sistema.agregarPrestamo(prestamo);
+        Persistencia.guardarPrestamos(sistema.getPrestamos());
+        }
+
+        public List<Prestamo> getPrestamos() {
+            return sistema.getPrestamos();
     }
 
     /**
@@ -100,18 +105,5 @@ public class ControladorBanco {
         Usuario u = sistema.buscarUsuarioPorId(idUsuario);
         if (u == null) return Collections.emptyList();
         return sistema.obtenerPrestamosDeUsuario(u);
-    }
-
-    /**
-     * Crea un PQRS asociado a un usuario.
-     * @param idUsuario ID del usuario que crea el PQRS
-     * @param tipo tipo (PETICION/QUEJA/RECLAMO/SUGERENCIA)
-     * @param descripcion descripción del caso
-     * @return el PQRS creado; si el usuario no existe retorna null
-     */
-    public PQRS crearPQRS(String idUsuario, String tipo, String descripcion) {
-        Usuario u = sistema.buscarUsuarioPorId(idUsuario);
-        if (u == null) return null;
-        return new PQRS(tipo, descripcion, u);
-    }
+    }    
 }
