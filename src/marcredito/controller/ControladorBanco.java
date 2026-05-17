@@ -3,6 +3,7 @@ package marcredito.controller;
 import java.util.Collections;
 import java.util.List;
 import marcredito.model.*;
+import marcredito.persistence.Persistencia;
 import marcredito.service.SistemaBanco;
 
 /**
@@ -31,8 +32,12 @@ public class ControladorBanco {
      * @param correo correo del usuario
      */
     public void registrarSolicitante(String id, String nombre, String correo) {
+
         Solicitante s = new Solicitante(id, nombre, correo);
+
         sistema.agregarUsuario(s);
+
+        Persistencia.guardarUsuarios(sistema.getUsuarios());
     }
 
     /**
@@ -42,8 +47,12 @@ public class ControladorBanco {
      * @param correo correo del usuario
      */
     public void registrarPrestamista(String id, String nombre, String correo) {
+
         Prestamista p = new Prestamista(id, nombre, correo);
+
         sistema.agregarUsuario(p);
+
+        Persistencia.guardarUsuarios(sistema.getUsuarios());
     }
 
     /**
