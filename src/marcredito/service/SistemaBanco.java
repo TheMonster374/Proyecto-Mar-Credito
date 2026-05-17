@@ -17,7 +17,7 @@ public class SistemaBanco {
     public void agregarUsuario(Usuario usuario) {
         usuarios.add(usuario);
     }
-
+        
     /**
      * Busca un usuario dentro del sistema por su ID.
      * @param id ID del usuario
@@ -55,5 +55,24 @@ public class SistemaBanco {
             }
         }
         return prestamosUsuario;
+    }
+    
+    /**
+     * Carga usuarios registrados
+     * 
+     * @return 
+    */
+    
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+    
+    /**
+     * Carga Prestamos creados
+     * 
+     * @return 
+     */
+    public List<Prestamo> getPrestamos() {
+        return prestamos;
     }
 }
