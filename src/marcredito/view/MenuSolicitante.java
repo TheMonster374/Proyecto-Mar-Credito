@@ -1,215 +1,185 @@
 package marcredito.view;
+
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import marcredito.controller.ControladorBanco;
 import marcredito.model.Prestamo;
+import marcredito.model.Prestamista;
+import marcredito.model.Solicitante;
+import marcredito.model.Usuario;
 
-
-public class MenuSolicitante extends javax.swing.JFrame {
-        
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuSolicitante.class.getName());
+public class MenuSolicitante extends JFrame {
 
     private final ControladorBanco controller;
-    private final marcredito.model.Solicitante solicitante;
+    private final Solicitante solicitante;
 
-    public MenuSolicitante(ControladorBanco controller, marcredito.model.Solicitante solicitante) {
+    private final DefaultTableModel modeloTabla;
+    private final JTable tablaSolicitudes;
+    private final JScrollPane scrollTabla;
+    private final JLabel lblSinSolicitudes;
+    private final JButton btnNuevaSolicitudGrande;
+    private final JButton btnNuevaSolicitudMini;
+    private final CardLayout cardLayout;
+    private final JPanel panelContenido;
 
+    public MenuSolicitante(ControladorBanco controller, Solicitante solicitante) {
         this.controller = controller;
         this.solicitante = solicitante;
 
-        initComponents();
+        setTitle("Menú Solicitante");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(900, 550);
+        setLocationRelativeTo(null);
+
+        modeloTabla = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{"ID", "Monto", "Plazo", "Estado"}
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        tablaSolicitudes = new JTable(modeloTabla);
+        scrollTabla = new JScrollPane(tablaSolicitudes);
+
+        lblSinSolicitudes = new JLabel("No hay solicitudes pendientes", SwingConstants.CENTER);
+
+        btnNuevaSolicitudGrande = new JButton("Nueva Solicitud");
+        btnNuevaSolicitudGrande.setPreferredSize(new Dimension(280, 70));
+        btnNuevaSolicitudGrande.addActionListener(e -> abrirFormularioNuevaSolicitud());
+
+        btnNuevaSolicitudMini = new JButton("Nueva Solicitud");
+        btnNuevaSolicitudMini.setPreferredSize(new Dimension(150, 35));
+        btnNuevaSolicitudMini.addActionListener(e -> abrirFormularioNuevaSolicitud());
+
+        JPanel panelCentro = new JPanel(new BorderLayout(10, 10));
+        panelCentro.add(lblSinSolicitudes, BorderLayout.CENTER);
+
+        JPanel panelBotonGrande = new JPanel();
+        panelBotonGrande.add(btnNuevaSolicitudGrande);
+        panelCentro.add(panelBotonGrande, BorderLayout.SOUTH);
+
+        JPanel panelTabla = new JPanel(new BorderLayout(10, 10));
+        panelTabla.add(scrollTabla, BorderLayout.CENTER);
+
+        JPanel panelAcciones = new JPanel();
+        panelAcciones.add(btnNuevaSolicitudMini);
+        panelTabla.add(panelAcciones, BorderLayout.SOUTH);
+
+        cardLayout = new CardLayout();
+        panelContenido = new JPanel(cardLayout);
+        panelContenido.add(panelCentro, "VACIO");
+        panelContenido.add(panelTabla, "TABLA");
+
+        add(panelContenido);
 
         cargarSolicitudes();
         actualizarVista();
-    } 
-    
-    public MenuSolicitante() {
-        controller = null;
-        solicitante = null;
-        initComponents();
     }
-    
+
+    public MenuSolicitante() {
+        this.controller = null;
+        this.solicitante = null;
+
+        modeloTabla = new DefaultTableModel();
+        tablaSolicitudes = new JTable(modeloTabla);
+        scrollTabla = new JScrollPane(tablaSolicitudes);
+        lblSinSolicitudes = new JLabel("No hay solicitudes pendientes");
+        btnNuevaSolicitudGrande = new JButton("Nueva Solicitud");
+        btnNuevaSolicitudMini = new JButton("Nueva Solicitud");
+        cardLayout = new CardLayout();
+        panelContenido = new JPanel(cardLayout);
+    }
+
     private void cargarSolicitudes() {
+        modeloTabla.setRowCount(0);
 
-        DefaultTableModel modelo = (DefaultTableModel) tablaSolicitudes.getModel();
-
-        modelo.setRowCount(0);
-
-        List<Prestamo> prestamos =
-        controller.obtenerPrestamosDeUsuario(solicitante.getId());
-
-        for (Prestamo p : prestamos) {
-
-            modelo.addRow(new Object[]{
-                "PR-" + ((int)(Math.random() * 9000) + 1000),
-                solicitante.getNombre(),
-                p.calcularTotalPagar(),
-                p.getAcuerdo().getPlazoMeses() + " meses",
-                "Pendiente"
+        List<Prestamo> prestamos = controller.obtenerPrestamosDeUsuario(solicitante.getId());
+        for (Prestamo prestamo : prestamos) {
+            modeloTabla.addRow(new Object[]{
+                prestamo.getIdPrestamo(),
+                prestamo.getMonto(),
+                prestamo.getAcuerdo().getPlazoMeses(),
+                prestamo.getEstado()
             });
         }
     }
-    
+
     private void actualizarVista() {
+        boolean hayPrestamos = modeloTabla.getRowCount() > 0;
 
-        tablaSolicitudes.setTableHeader(null);
-        
-        if (tablaSolicitudes.getRowCount() == 0) {
-            //Mostrar tabla vacia
-            lblSinSolicitudes.setVisible(true);
-            btnNuevaSolicitudGrande.setVisible(true);
-            
-            //Ocultar tabla
-            tablaSolicitudes.setVisible(false);
-            jScrollPane1.setVisible(false);
-            btnNuevaSolicitudMini1.setVisible(false);
-            btnVerDetalles.setVisible(false);
-            } else {
-                lblSinSolicitudes.setVisible(false);
-                btnNuevaSolicitudGrande.setVisible(false);
-                
-                //Mostrar tabla
-                tablaSolicitudes.setVisible(true);
-                jScrollPane1.setVisible(true);
-                btnNuevaSolicitudMini1.setVisible(true);
-                btnVerDetalles.setVisible(true);
-            }
-    }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        lblSinSolicitudes = new javax.swing.JLabel();
-        btnNuevaSolicitudGrande = new javax.swing.JButton();
-        btnVerDetalles = new javax.swing.JButton();
-        btnNuevaSolicitudMini1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaSolicitudes = new javax.swing.JTable();
-        Fondo = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblSinSolicitudes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblSinSolicitudes.setText("¡No hay solicitudes pendientes!");
-        getContentPane().add(lblSinSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, -1, -1));
-
-        btnNuevaSolicitudGrande.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bttn_new_s.png"))); // NOI18N
-        btnNuevaSolicitudGrande.setBorder(null);
-        btnNuevaSolicitudGrande.setBorderPainted(false);
-        btnNuevaSolicitudGrande.setContentAreaFilled(false);
-        btnNuevaSolicitudGrande.setFocusPainted(false);
-        btnNuevaSolicitudGrande.addActionListener(this::btnNuevaSolicitudGrandeActionPerformed);
-        getContentPane().add(btnNuevaSolicitudGrande, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 280, 210, 70));
-
-        btnVerDetalles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bttn_details_s.png"))); // NOI18N
-        btnVerDetalles.setBorderPainted(false);
-        btnVerDetalles.setContentAreaFilled(false);
-        btnVerDetalles.setDefaultCapable(false);
-        btnVerDetalles.addActionListener(this::btnVerDetallesActionPerformed);
-        getContentPane().add(btnVerDetalles, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 420, -1, -1));
-
-        btnNuevaSolicitudMini1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bttn_new_s2.png"))); // NOI18N
-        btnNuevaSolicitudMini1.setBorderPainted(false);
-        btnNuevaSolicitudMini1.setContentAreaFilled(false);
-        btnNuevaSolicitudMini1.setDefaultCapable(false);
-        getContentPane().add(btnNuevaSolicitudMini1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 420, -1, -1));
-
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jScrollPane1.setOpaque(false);
-
-        tablaSolicitudes.setBackground(new java.awt.Color(219, 219, 219));
-        tablaSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Solicitante", "Monto", "Plazo", "Estado"
-            }
-        ));
-        tablaSolicitudes.setEnabled(false);
-        tablaSolicitudes.setOpaque(false);
-        tablaSolicitudes.setRowSelectionAllowed(false);
-        tablaSolicitudes.setShowGrid(false);
-        tablaSolicitudes.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                tablaSolicitudesAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        tablaSolicitudes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaSolicitudesMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tablaSolicitudes);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 167, 590, 310));
-
-        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bkg_solici.png"))); // NOI18N
-        Fondo.setText("jLabel1");
-        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 590));
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void btnVerDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnVerDetallesActionPerformed
-
-    private void btnNuevaSolicitudGrandeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSolicitudGrandeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNuevaSolicitudGrandeActionPerformed
-
-    private void tablaSolicitudesAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tablaSolicitudesAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tablaSolicitudesAncestorAdded
-
-    private void tablaSolicitudesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaSolicitudesMouseClicked
-    
-    }//GEN-LAST:event_tablaSolicitudesMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        if (hayPrestamos) {
+            cardLayout.show(panelContenido, "TABLA");
+        } else {
+            cardLayout.show(panelContenido, "VACIO");
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MenuSolicitante().setVisible(true));
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Fondo;
-    private javax.swing.JButton btnNuevaSolicitudGrande;
-    private javax.swing.JButton btnNuevaSolicitudMini1;
-    private javax.swing.JButton btnVerDetalles;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblSinSolicitudes;
-    private javax.swing.JTable tablaSolicitudes;
-    // End of variables declaration//GEN-END:variables
+    private void abrirFormularioNuevaSolicitud() {
+        String montoTexto = JOptionPane.showInputDialog(this, "Ingrese el monto solicitado:");
+        if (montoTexto == null) {
+            return;
+        }
+
+        String plazoTexto = JOptionPane.showInputDialog(this, "Ingrese el plazo en meses:");
+        if (plazoTexto == null) {
+            return;
+        }
+
+        double monto;
+        int plazo;
+
+        try {
+            monto = Double.parseDouble(montoTexto.trim());
+            plazo = Integer.parseInt(plazoTexto.trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Monto o plazo inválido.");
+            return;
+        }
+
+        if (monto <= 0 || plazo <= 0) {
+            JOptionPane.showMessageDialog(this, "Monto y plazo deben ser mayores a 0.");
+            return;
+        }
+
+        String idPrestamista = obtenerPrestamistaDisponible();
+        if (idPrestamista == null) {
+            JOptionPane.showMessageDialog(this, "No hay prestamistas disponibles.");
+            return;
+        }
+
+        controller.crearPrestamo(monto, plazo, 5.0, solicitante.getId(), idPrestamista);
+        cargarSolicitudes();
+        actualizarVista();
+    }
+
+    private String obtenerPrestamistaDisponible() {
+        Usuario usuarioP1 = controller.buscarUsuarioPorId("P1");
+        if (usuarioP1 instanceof Prestamista) {
+            return usuarioP1.getId();
+        }
+
+        List<Prestamo> prestamos = controller.getPrestamos();
+        for (Prestamo prestamo : prestamos) {
+            Prestamista prestamista = prestamo.getPrestamista();
+            if (prestamista != null) {
+                return prestamista.getId();
+            }
+        }
+
+        return null;
+    }
 }

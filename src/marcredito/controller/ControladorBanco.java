@@ -89,6 +89,11 @@ public class ControladorBanco {
         Prestamo prestamo = new Prestamo(monto, acuerdo, (Solicitante) uSol, (Prestamista) uPre);
 
         sistema.agregarPrestamo(prestamo);
+        Persistencia.guardarPrestamos(sistema.getPrestamos());
+    }
+
+    public List<Prestamo> getPrestamos() {
+        return sistema.getPrestamos();
     }
 
     /**

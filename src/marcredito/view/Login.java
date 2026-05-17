@@ -277,20 +277,15 @@ public class Login extends javax.swing.JFrame {
 
         if (u == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Usuario no encontrado");
-        } else if (u instanceof marcredito.model.Solicitante s) {
-                new MenuSolicitante(controller, s).setVisible(true);
-                this.dispose();
-
-            } else if (u instanceof marcredito.model.Solicitante s) {
-
-                new MenuSolicitante(controller, s).setVisible(true);
-                dispose();
-
-            } else if (u instanceof marcredito.model.Prestamista p) {
-
-               // new MenuPrestamista(controller, p).setVisible(true);
-                dispose();
-}
+        } else if (u instanceof marcredito.model.Solicitante) {
+            marcredito.model.Solicitante s = (marcredito.model.Solicitante) u;
+            new MenuSolicitante(controller, s).setVisible(true);
+            dispose();
+        } else if (u instanceof marcredito.model.Prestamista) {
+            marcredito.model.Prestamista p = (marcredito.model.Prestamista) u;
+            new MenuPrestamista(controller, p).setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_ingresoButtonActionPerformed
 
     private void passTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passTxtActionPerformed
