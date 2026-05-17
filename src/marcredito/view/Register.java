@@ -266,7 +266,7 @@ public class Register extends javax.swing.JFrame {
         }
 
         // Generar ID automático
-        String id = "S" + ((int)(Math.random() * 9000) + 1000);
+        String id = "MC" + ((int)(Math.random() * 90) + 10);
 
         // Correo ficticio temporal
         String correo = nombre.replace(" ", "").toLowerCase() + "@mail.com";
