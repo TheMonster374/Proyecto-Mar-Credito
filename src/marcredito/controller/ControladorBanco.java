@@ -97,6 +97,19 @@ public class ControladorBanco {
     }
 
     /**
+     * Retorna el primer Prestamista registrado en el sistema, o null si no hay ninguno.
+     * @return primer Prestamista disponible, o null
+     */
+    public Prestamista obtenerPrimerPrestamista() {
+        for (Usuario u : sistema.getUsuarios()) {
+            if (u instanceof Prestamista p) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Obtiene los préstamos asociados a un usuario por ID.
      * @param idUsuario ID del usuario
      * @return lista de préstamos (si no hay, retorna lista vacía)
