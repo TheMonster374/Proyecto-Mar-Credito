@@ -22,11 +22,22 @@ public class Register extends javax.swing.JFrame {
     public Register() {
         this.controller = null;
         initComponents();
+        
     }
 
     public Register(ControladorBanco controller) {
         this.controller = controller;
         initComponents();
+        txtlogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        txtlogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            new Login (controller).setVisible(true);
+            dispose();
+            }
+        });
     }
 
     /**
@@ -46,7 +57,7 @@ public class Register extends javax.swing.JFrame {
         comproLabel = new javax.swing.JLabel();
         BarritaAzul = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        txtlogin = new javax.swing.JLabel();
         FondoLoginDentro = new javax.swing.JPanel();
         idTxt = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
@@ -109,10 +120,10 @@ public class Register extends javax.swing.JFrame {
         jLabel11.setToolTipText("");
         BarritaAzul.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 20));
 
-        jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel3.setText("Inicia sesion ");
-        BarritaAzul.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, 20));
+        txtlogin.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtlogin.setForeground(new java.awt.Color(0, 0, 102));
+        txtlogin.setText("Inicia sesion ");
+        BarritaAzul.add(txtlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, 20));
 
         Background.add(BarritaAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 460, 390, 60));
 
@@ -338,7 +349,6 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -351,5 +361,6 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JPasswordField passTxt;
+    private javax.swing.JLabel txtlogin;
     // End of variables declaration//GEN-END:variables
 }

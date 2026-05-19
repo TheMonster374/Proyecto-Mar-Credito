@@ -19,25 +19,15 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         this.controller = null;   // para el diseñador
-        initComponents();
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            new Register(controller).setVisible(true);
-            dispose();
-            }
-        });
+        initComponents();        
     }
 
     public Login(ControladorBanco controller) {
         this.controller = controller;
         initComponents();
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtregister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtregister.addMouseListener(new java.awt.event.MouseAdapter() {
             
         @Override
         public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -78,7 +68,7 @@ public class Login extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         BarritaAzul = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        txtregister = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
@@ -190,12 +180,12 @@ public class Login extends javax.swing.JFrame {
 
         BarritaAzul.setBackground(new java.awt.Color(153, 255, 255));
 
-        jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel3.setText("Registro");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtregister.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtregister.setForeground(new java.awt.Color(0, 0, 102));
+        txtregister.setText("Registro");
+        txtregister.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                txtregisterMouseClicked(evt);
             }
         });
 
@@ -213,7 +203,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(50, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(txtregister)
                 .addGap(70, 70, 70))
         );
         BarritaAzulLayout.setVerticalGroup(
@@ -222,7 +212,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(BarritaAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtregister, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -279,12 +269,11 @@ public class Login extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Usuario no encontrado");
         } else if (u instanceof marcredito.model.Solicitante s) {
                 new MenuSolicitante(controller, s).setVisible(true);
-                this.dispose();
-
+                this.dispose();            
             } else if (u instanceof marcredito.model.Prestamista p) {
-
-               new MenuPrestamista(controller, p).setVisible(true);
-               dispose();
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "El módulo de Prestamista está en construcción.",
+                    "En construcción", javax.swing.JOptionPane.INFORMATION_MESSAGE);
 }
     }//GEN-LAST:event_ingresoButtonActionPerformed
 
@@ -292,9 +281,9 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passTxtActionPerformed
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void txtregisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtregisterMouseClicked
         
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_txtregisterMouseClicked
     
     /**
      * @param args the command line arguments
@@ -335,7 +324,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -346,5 +334,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPasswordField passTxt;
+    private javax.swing.JLabel txtregister;
     // End of variables declaration//GEN-END:variables
 }

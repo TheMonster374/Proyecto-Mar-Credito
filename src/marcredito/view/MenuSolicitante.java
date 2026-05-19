@@ -1,7 +1,9 @@
 package marcredito.view;
-import java.util.List;
+
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import marcredito.controller.ControladorBanco;
+import java.util.List;
 import marcredito.model.Prestamo;
 
 
@@ -16,43 +18,128 @@ public class MenuSolicitante extends javax.swing.JFrame {
 
         this.controller = controller;
         this.solicitante = solicitante;
-
         initComponents();
-
+        configurarTabla();        
         cargarSolicitudes();
         actualizarVista();
     } 
-    
+                
+        
     public MenuSolicitante() {
         controller = null;
         solicitante = null;
         initComponents();
     }
     
+    
+    
+    private void configurarTabla() {
+        // Replace the model to add the "Interés" column and disable cell editing
+        DefaultTableModel nuevoModelo = new DefaultTableModel(
+            new Object[][]{},
+            new String[]{"ID", "Solicitante", "Monto", "Plazo", "Interés", "Estado"}
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        
+        tablaSolicitudes.setModel(nuevoModelo);
+
+        // Enable single-row selection
+        tablaSolicitudes.setEnabled(true);
+        tablaSolicitudes.setRowSelectionAllowed(true);
+        tablaSolicitudes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Hide table header robustly
+        tablaSolicitudes.setTableHeader(null);
+        jScrollPane1.setColumnHeaderView(null);
+
+        // Wire up the mini "Nueva Solicitud" button (not wired in initComponents)
+        btnNuevaSolicitudMini1.addActionListener(e -> nuevaSolicitud());
+    }
+    
     private void cargarSolicitudes() {
 
         DefaultTableModel modelo = (DefaultTableModel) tablaSolicitudes.getModel();
-
-        modelo.setRowCount(0);
-
-        List<Prestamo> prestamos =
-        controller.obtenerPrestamosDeUsuario(solicitante.getId());
-
+        List<Prestamo> prestamos = controller.obtenerPrestamosDeUsuario(solicitante.getId());
+        
         for (Prestamo p : prestamos) {
 
             modelo.addRow(new Object[]{
-                "PR-" + ((int)(Math.random() * 9000) + 1000),
+                p.getIdPrestamo(),
                 solicitante.getNombre(),
-                p.calcularTotalPagar(),
+                p.getMonto(),
                 p.getAcuerdo().getPlazoMeses() + " meses",
-                "Pendiente"
+                p.getAcuerdo().getInteres() + "%",
+                p.getEstado()
             });
         }
+    }
+    
+    private void nuevaSolicitud() {
+        // Find a lender
+        marcredito.model.Prestamista prestamista = controller.obtenerPrimerPrestamista();
+        if (prestamista == null) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "No hay prestamistas disponibles en el sistema.",
+                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Ask for monto
+        String montoStr = javax.swing.JOptionPane.showInputDialog(this,
+            "Ingrese el monto del préstamo ($):", "Nueva Solicitud",
+            javax.swing.JOptionPane.QUESTION_MESSAGE);
+        if (montoStr == null || montoStr.trim().isEmpty()) return;
+
+        double monto;
+        try {
+            monto = Double.parseDouble(montoStr.trim().replace(",", "."));
+            if (monto <= 0) throw new NumberFormatException();
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "El monto debe ser un número mayor a 0.",
+                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Ask for plazo
+        String plazoStr = javax.swing.JOptionPane.showInputDialog(this,
+            "Ingrese el plazo en meses:", "Nueva Solicitud",
+            javax.swing.JOptionPane.QUESTION_MESSAGE);
+        if (plazoStr == null || plazoStr.trim().isEmpty()) return;
+
+        int plazo;
+        try {
+            plazo = Integer.parseInt(plazoStr.trim());
+            if (plazo <= 0) throw new NumberFormatException();
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "El plazo debe ser un número entero mayor a 0.",
+                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Create the loan with fixed 5% interest in Pendiente state
+        controller.crearPrestamo(monto, plazo, 5.0, solicitante.getId(), prestamista.getId());
+
+        // Refresh view
+        cargarSolicitudes();
+        actualizarVista();
+
+        javax.swing.JOptionPane.showMessageDialog(this,
+            "¡Solicitud creada exitosamente! Interés: 5%",
+            "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }
     
     private void actualizarVista() {
 
         tablaSolicitudes.setTableHeader(null);
+        tablaSolicitudes.setEnabled(true); 
+        tablaSolicitudes.setRowSelectionAllowed(true);
+        tablaSolicitudes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         if (tablaSolicitudes.getRowCount() == 0) {
             //Mostrar tabla vacia
@@ -113,7 +200,7 @@ public class MenuSolicitante extends javax.swing.JFrame {
         btnVerDetalles.setContentAreaFilled(false);
         btnVerDetalles.setDefaultCapable(false);
         btnVerDetalles.addActionListener(this::btnVerDetallesActionPerformed);
-        getContentPane().add(btnVerDetalles, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 420, -1, -1));
+        getContentPane().add(btnVerDetalles, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 427, 90, 30));
 
         btnNuevaSolicitudMini1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bttn_new_s2.png"))); // NOI18N
         btnNuevaSolicitudMini1.setBorderPainted(false);
@@ -130,7 +217,7 @@ public class MenuSolicitante extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Solicitante", "Monto", "Plazo", "Estado"
+                "ID", "Solicitante", "Monto", "Plazo", "Interes", "Estado"
             }
         ));
         tablaSolicitudes.setEnabled(false);
@@ -153,7 +240,7 @@ public class MenuSolicitante extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaSolicitudes);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 167, 590, 310));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 580, 210));
 
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bkg_solici.png"))); // NOI18N
         Fondo.setText("jLabel1");
@@ -163,11 +250,34 @@ public class MenuSolicitante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVerDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesActionPerformed
-        // TODO add your handling code here:
+         int fila = tablaSolicitudes.getSelectedRow();
+        if (fila < 0) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Por favor selecciona una solicitud de la tabla.",
+                "Sin selección", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        DefaultTableModel modelo = (DefaultTableModel) tablaSolicitudes.getModel();
+        String id       = String.valueOf(modelo.getValueAt(fila, 0));
+        String nombre   = String.valueOf(modelo.getValueAt(fila, 1));
+        String montoVal = String.valueOf(modelo.getValueAt(fila, 2));
+        String plazo    = String.valueOf(modelo.getValueAt(fila, 3));
+        String interes  = String.valueOf(modelo.getValueAt(fila, 4));
+        String estado   = String.valueOf(modelo.getValueAt(fila, 5));
+
+        String mensaje = "ID: " + id + "\n"
+            + "Solicitante: " + nombre + "\n"
+            + "Monto: $" + montoVal + "\n"
+            + "Plazo: " + plazo + "\n"
+            + "Interés: " + interes + "\n"
+            + "Estado: " + estado;
+
+        javax.swing.JOptionPane.showMessageDialog(this, mensaje,
+            "Detalles de la Solicitud", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnVerDetallesActionPerformed
 
     private void btnNuevaSolicitudGrandeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSolicitudGrandeActionPerformed
-        // TODO add your handling code here:
+        nuevaSolicitud();
     }//GEN-LAST:event_btnNuevaSolicitudGrandeActionPerformed
 
     private void tablaSolicitudesAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tablaSolicitudesAncestorAdded
