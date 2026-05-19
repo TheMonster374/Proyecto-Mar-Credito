@@ -1,5 +1,6 @@
 package marcredito.view;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import marcredito.controller.ControladorBanco;
 import marcredito.model.Prestamo;
@@ -30,6 +31,9 @@ public class MenuSolicitante extends javax.swing.JFrame {
     }
     
     private void cargarSolicitudes() {
+        if (controller == null || solicitante == null) {
+            return;
+        }
 
         DefaultTableModel modelo = (DefaultTableModel) tablaSolicitudes.getModel();
 
@@ -41,11 +45,12 @@ public class MenuSolicitante extends javax.swing.JFrame {
         for (Prestamo p : prestamos) {
 
             modelo.addRow(new Object[]{
-                "PR-" + ((int)(Math.random() * 9000) + 1000),
+                p.getIdPrestamo(),
                 solicitante.getNombre(),
-                p.calcularTotalPagar(),
+                p.getMonto(),
                 p.getAcuerdo().getPlazoMeses() + " meses",
-                "Pendiente"
+                p.getAcuerdo().getInteres() + "%",
+                p.getEstado()
             });
         }
     }
@@ -53,6 +58,12 @@ public class MenuSolicitante extends javax.swing.JFrame {
     private void actualizarVista() {
 
         tablaSolicitudes.setTableHeader(null);
+        jScrollPane1.setColumnHeaderView(null);
+        tablaSolicitudes.setEnabled(true);
+        tablaSolicitudes.setRowSelectionAllowed(true);
+        tablaSolicitudes.setColumnSelectionAllowed(false);
+        tablaSolicitudes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tablaSolicitudes.setDefaultEditor(Object.class, null);
         
         if (tablaSolicitudes.getRowCount() == 0) {
             //Mostrar tabla vacia
@@ -119,6 +130,7 @@ public class MenuSolicitante extends javax.swing.JFrame {
         btnNuevaSolicitudMini1.setBorderPainted(false);
         btnNuevaSolicitudMini1.setContentAreaFilled(false);
         btnNuevaSolicitudMini1.setDefaultCapable(false);
+        btnNuevaSolicitudMini1.addActionListener(this::btnNuevaSolicitudMini1ActionPerformed);
         getContentPane().add(btnNuevaSolicitudMini1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 420, -1, -1));
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -130,7 +142,7 @@ public class MenuSolicitante extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Solicitante", "Monto", "Plazo", "Estado"
+                "ID", "Solicitante", "Monto", "Plazo", "Interés", "Estado"
             }
         ));
         tablaSolicitudes.setEnabled(false);
@@ -163,12 +175,37 @@ public class MenuSolicitante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVerDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesActionPerformed
-        // TODO add your handling code here:
+        int row = tablaSolicitudes.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona una solicitud para ver detalles.");
+            return;
+        }
+
+        String id = String.valueOf(tablaSolicitudes.getValueAt(row, 0));
+        String sol = String.valueOf(tablaSolicitudes.getValueAt(row, 1));
+        String monto = String.valueOf(tablaSolicitudes.getValueAt(row, 2));
+        String plazo = String.valueOf(tablaSolicitudes.getValueAt(row, 3));
+        String interes = String.valueOf(tablaSolicitudes.getValueAt(row, 4));
+        String estado = String.valueOf(tablaSolicitudes.getValueAt(row, 5));
+
+        JOptionPane.showMessageDialog(this,
+                "ID: " + id + "\n"
+                + "Solicitante: " + sol + "\n"
+                + "Monto: " + monto + "\n"
+                + "Plazo: " + plazo + "\n"
+                + "Interés: " + interes + "\n"
+                + "Estado: " + estado,
+                "Detalle de solicitud",
+                JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnVerDetallesActionPerformed
 
     private void btnNuevaSolicitudGrandeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSolicitudGrandeActionPerformed
-        // TODO add your handling code here:
+        crearNuevaSolicitud();
     }//GEN-LAST:event_btnNuevaSolicitudGrandeActionPerformed
+
+    private void btnNuevaSolicitudMini1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSolicitudMini1ActionPerformed
+        crearNuevaSolicitud();
+    }//GEN-LAST:event_btnNuevaSolicitudMini1ActionPerformed
 
     private void tablaSolicitudesAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tablaSolicitudesAncestorAdded
         // TODO add your handling code here:
@@ -177,6 +214,42 @@ public class MenuSolicitante extends javax.swing.JFrame {
     private void tablaSolicitudesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaSolicitudesMouseClicked
     
     }//GEN-LAST:event_tablaSolicitudesMouseClicked
+
+    private void crearNuevaSolicitud() {
+        if (controller == null || solicitante == null) {
+            return;
+        }
+
+        String montoStr = JOptionPane.showInputDialog(this, "Monto del préstamo:");
+        if (montoStr == null) {
+            return;
+        }
+
+        String plazoStr = JOptionPane.showInputDialog(this, "Plazo (meses):");
+        if (plazoStr == null) {
+            return;
+        }
+
+        double monto;
+        int plazo;
+        try {
+            monto = Double.parseDouble(montoStr.trim());
+            plazo = Integer.parseInt(plazoStr.trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Monto o plazo inválido.");
+            return;
+        }
+
+        String idPrestamista = JOptionPane.showInputDialog(this, "ID del prestamista (ej: P1):");
+        if (idPrestamista == null) {
+            return;
+        }
+
+        controller.crearPrestamo(monto, plazo, 5.0, solicitante.getId(), idPrestamista.trim());
+        JOptionPane.showMessageDialog(this, "Solicitud creada y enviada (estado: Pendiente).");
+        cargarSolicitudes();
+        actualizarVista();
+    }
 
     /**
      * @param args the command line arguments
