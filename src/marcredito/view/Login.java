@@ -282,9 +282,9 @@ public class Login extends javax.swing.JFrame {
                 this.dispose();
 
             } else if (u instanceof marcredito.model.Prestamista p) {
-
-               new MenuPrestamista(controller, p).setVisible(true);
-               dispose();
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "El módulo de Prestamista está en construcción.",
+                    "En construcción", javax.swing.JOptionPane.INFORMATION_MESSAGE);
 }
     }//GEN-LAST:event_ingresoButtonActionPerformed
 
