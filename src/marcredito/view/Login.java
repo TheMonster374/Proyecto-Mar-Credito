@@ -281,15 +281,10 @@ public class Login extends javax.swing.JFrame {
                 new MenuSolicitante(controller, s).setVisible(true);
                 this.dispose();
 
-            } else if (u instanceof marcredito.model.Solicitante s) {
-
-                new MenuSolicitante(controller, s).setVisible(true);
-                dispose();
-
             } else if (u instanceof marcredito.model.Prestamista p) {
 
-               // new MenuPrestamista(controller, p).setVisible(true);
-                dispose();
+               new MenuPrestamista(controller, p).setVisible(true);
+               dispose();
 }
     }//GEN-LAST:event_ingresoButtonActionPerformed
 
