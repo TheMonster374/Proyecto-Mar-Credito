@@ -3,141 +3,69 @@ package marcredito.persistence;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import marcredito.model.*;
+import marcredito.model.Prestamo;
+import marcredito.model.Usuario;
 
-public class Persistencia {
+public class Persistencia implements Serializable {
+    private static final String ARCHIVO_PRESTAMOS = "prestamos.dat";
+    private static final String ARCHIVO_USUARIOS = "usuarios.dat";
 
-    private static final String ARCHIVO_USUARIOS = "usuarios.txt";
-    private static final String ARCHIVO_PRESTAMOS = "prestamos.txt";
-
-    private Persistencia() {
+    // --- MÉTODOS PARA PRÉSTAMOS ---
+    public boolean guardarPrestamo(Prestamo pre) throws IOException, ClassNotFoundException {
+        List<Prestamo> lista = listarPrestamos();
+        lista.add(pre);
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARCHIVO_PRESTAMOS))) {
+            out.writeObject(lista);
+        }
+        return true;
     }
+    
 
-    public static void guardarUsuarios(List<Usuario> usuarios) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(ARCHIVO_USUARIOS))) {
-            for (Usuario usuario : usuarios) {
-                String tipo = "SOLICITANTE";
-                if (usuario instanceof Prestamista) {
-                    tipo = "PRESTAMISTA";
-                }
-                writer.println(usuario.getId() + ";" + usuario.getNombre() + ";" + usuario.getCorreo() + ";" + tipo);
+    public List<Prestamo> listarPrestamos() throws IOException, ClassNotFoundException {
+        List<Prestamo> lista = new ArrayList<>();
+        try {
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(ARCHIVO_PRESTAMOS))) {
+                lista = (List<Prestamo>) in.readObject();
             }
-        } catch (IOException e) {
-            System.out.println("Error al guardar usuarios: " + e.getMessage());
+        } catch (FileNotFoundException ex) {
+            System.out.println("No existe archivo de préstamos.");
         }
+        return lista;
     }
 
-    public static List<Usuario> cargarUsuarios() {
-        List<Usuario> usuarios = new ArrayList<>();
-        File archivo = new File(ARCHIVO_USUARIOS);
+    // --- MÉTODOS PARA USUARIOS ---
 
-        if (!archivo.exists()) {
-            return usuarios;
+    public boolean guardarUsuario(Usuario usuario) throws IOException, ClassNotFoundException {
+        List<Usuario> lista = listarUsuarios();
+        lista.add(usuario);
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARCHIVO_USUARIOS))) {
+            out.writeObject(lista);
         }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
-            String linea;
-            while ((linea = reader.readLine()) != null) {
-                String[] datos = linea.split(";", -1);
-                if (datos.length < 4) {
-                    continue;
-                }
-
-                String id = datos[0];
-                String nombre = datos[1];
-                String correo = datos[2];
-                String tipo = datos[3];
-
-                if ("PRESTAMISTA".equals(tipo)) {
-                    usuarios.add(new Prestamista(id, nombre, correo));
-                } else {
-                    usuarios.add(new Solicitante(id, nombre, correo));
-                }
+        return true;
+    }
+    
+    public List<Usuario> listarUsuarios() throws IOException, ClassNotFoundException {
+        List<Usuario> lista = new ArrayList<>();
+        try {
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(ARCHIVO_USUARIOS))) {
+                lista = (List<Usuario>) in.readObject();
             }
-        } catch (IOException e) {
-            System.out.println("Error al cargar usuarios: " + e.getMessage());
+        } catch (FileNotFoundException ex) {
+            System.out.println("No existe archivo de usuarios.");
         }
-
-        return usuarios;
+        return lista;
     }
 
-    public static void guardarPrestamos(List<Prestamo> prestamos) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(ARCHIVO_PRESTAMOS))) {
-            for (Prestamo prestamo : prestamos) {
-                writer.println(
-                        prestamo.getIdPrestamo() + ";"
-                        + prestamo.getMonto() + ";"
-                        + prestamo.getAcuerdo().getPlazoMeses() + ";"
-                        + prestamo.getAcuerdo().getInteres() + ";"
-                        + prestamo.getEstado() + ";"
-                        + prestamo.getSolicitante().getId() + ";"
-                        + prestamo.getPrestamista().getId()
-                );
-            }
-        } catch (IOException e) {
-            System.out.println("Error al guardar préstamos: " + e.getMessage());
-        }
-    }
-
-    public static List<Prestamo> cargarPrestamos(List<Usuario> usuarios) {
-        List<Prestamo> prestamos = new ArrayList<>();
-        File archivo = new File(ARCHIVO_PRESTAMOS);
-
-        if (!archivo.exists()) {
-            return prestamos;
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
-            String linea;
-            while ((linea = reader.readLine()) != null) {
-                String[] datos = linea.split(";", -1);
-                if (datos.length < 7) {
-                    continue;
-                }
-
-                String idPrestamo = datos[0];
-                double monto = Double.parseDouble(datos[1]);
-                int plazo = Integer.parseInt(datos[2]);
-                double interes = Double.parseDouble(datos[3]);
-                String estado = datos[4];
-                String idSolicitante = datos[5];
-                String idPrestamista = datos[6];
-
-                Solicitante solicitante = buscarSolicitante(usuarios, idSolicitante);
-                Prestamista prestamista = buscarPrestamista(usuarios, idPrestamista);
-
-                if (solicitante == null || prestamista == null) {
-                    continue;
-                }
-
-                Acuerdo acuerdo = new Acuerdo(interes, plazo);
-                Prestamo prestamo = new Prestamo(monto, acuerdo, solicitante, prestamista);
-                prestamo.setIdPrestamo(idPrestamo);
-                prestamo.setEstado(estado);
-                prestamos.add(prestamo);
-            }
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("Error al cargar préstamos: " + e.getMessage());
-        }
-
-        return prestamos;
-    }
-
-    private static Solicitante buscarSolicitante(List<Usuario> usuarios, String id) {
-        for (Usuario usuario : usuarios) {
-            if (usuario instanceof Solicitante && usuario.getId().equals(id)) {
-                return (Solicitante) usuario;
-            }
-        }
-        return null;
-    }
-
-    private static Prestamista buscarPrestamista(List<Usuario> usuarios, String id) {
-        for (Usuario usuario : usuarios) {
-            if (usuario instanceof Prestamista && usuario.getId().equals(id)) {
-                return (Prestamista) usuario;
-            }
-        }
-        return null;
-    }
+//    // --- Demostración main ---
+//    public static void main(String[] args) throws IOException, ClassNotFoundException {
+//        Persistencia p = new Persistencia();
+////        // Ejemplo general: Listar préstamos
+////        List<Prestamo> lista = p.listarPrestamos();
+////        for (Prestamo pr : lista) {
+////            System.out.println(pr.toString());
+////        }
+//        // Ejemplo: Guardar usuario (Solicitante)
+//        Usuario s = new Prestamista("S1", "Ana", "ana@mar.com");
+//        p.guardarUsuario(s);
+//    }
 }
