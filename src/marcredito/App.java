@@ -1,29 +1,32 @@
 package marcredito;
 
+import java.io.IOException;
 import marcredito.controller.ControladorBanco;
+import marcredito.model.Prestamo;
 import marcredito.model.Usuario;
 import marcredito.persistence.Persistencia;
 import marcredito.service.SistemaBanco;
 import marcredito.view.Login;
 
 public class App {
-    
-    public static void main(String[] args) {
-        SistemaBanco sistema = new SistemaBanco();
-        ControladorBanco controller = new ControladorBanco(sistema);
 
-        java.awt.EventQueue.invokeLater(() -> {
-            new Login(controller).setVisible(true);
-        });        
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        SistemaBanco sistema = new SistemaBanco();
+        Persistencia persistencia = new Persistencia();
 
         // Cargar usuarios
-         for (Usuario u : Persistencia.cargarUsuarios()) {
-             sistema.agregarUsuario(u);
-         }
-    
-        // Usuarios de prueba (para login por ID)
-        controller.registrarSolicitante("S1", "Ana", "ana@mail.com");
-        //controller.registrarPrestamista("P1", "Carlos", "carlos@mail.com");
-    }    
-    
+        for (Usuario u : persistencia.listarUsuarios()) {
+            sistema.agregarUsuario(u);
+        }
+        // Cargar préstamos
+        for (Prestamo p : persistencia.listarPrestamos()) {
+            sistema.agregarPrestamo(p);
+        }
+
+        // Inicializar controlador con persistencia
+        ControladorBanco controller = new ControladorBanco(sistema, persistencia);        
+        java.awt.EventQueue.invokeLater(() -> {
+            new Login(controller).setVisible(true);
+        });
+    }
 }
