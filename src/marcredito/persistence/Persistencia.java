@@ -10,10 +10,7 @@ public class Persistencia implements Serializable {
     private static final String ARCHIVO_PRESTAMOS = "prestamos.dat";
     private static final String ARCHIVO_USUARIOS = "usuarios.dat";
 
-    // --- MÉTODOS PARA PRÉSTAMOS ---
-    public boolean guardarPrestamo(Prestamo pre) throws IOException, ClassNotFoundException {
-        List<Prestamo> lista = listarPrestamos();
-        lista.add(pre);
+    public boolean guardarPrestamos(List<Prestamo> lista) throws IOException {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARCHIVO_PRESTAMOS))) {
             out.writeObject(lista);
         }
@@ -29,6 +26,11 @@ public class Persistencia implements Serializable {
             }
         } catch (FileNotFoundException ex) {
             System.out.println("No existe archivo de préstamos.");
+            // Aquí NO RETURNES NULO, debe mantener la lista vacía
+        }
+        // Asegura que nunca devuelves null
+        if (lista == null) {
+            lista = new ArrayList<>();
         }
         return lista;
     }
