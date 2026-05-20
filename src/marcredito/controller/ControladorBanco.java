@@ -10,7 +10,7 @@ import marcredito.service.SistemaBanco;
 public class ControladorBanco {
 
     private final SistemaBanco sistema;
-    private final Persistencia persistencia;
+    private final Persistencia persistencia; 
     
     public ControladorBanco(SistemaBanco sistema, Persistencia persistencia) {
         this.sistema = sistema;
@@ -43,19 +43,34 @@ public class ControladorBanco {
         Usuario uSol = sistema.buscarUsuarioPorId(idSolicitante);
         Usuario uPre = sistema.buscarUsuarioPorId(idPrestamista);
 
-        if (!(uSol instanceof Solicitante)) return;
-        if (!(uPre instanceof Prestamista)) return;
+        if (!(uSol instanceof Solicitante) || !(uPre instanceof Prestamista)) return;
 
         Acuerdo acuerdo = new Acuerdo(interes, plazoMeses);
-
         Prestamo prestamo = new Prestamo(monto, acuerdo, (Solicitante) uSol, (Prestamista) uPre);
 
-        sistema.agregarPrestamo(prestamo);
+        // ¡SÓLO usa la lista cargada al arrancar!
+        sistema.getPrestamos().add(prestamo);
+        // Y guarda esa lista completa
         try {
-            persistencia.guardarPrestamo(prestamo);
-        } catch (IOException | ClassNotFoundException e) {
+            persistencia.guardarPrestamos(sistema.getPrestamos());
+        } catch (IOException e) {
         }
     }
+    
+    public void actualizarPrestamo(Prestamo prestamoActualizado) {
+    List<Prestamo> lista = sistema.getPrestamos();
+    for (int i = 0; i < lista.size(); i++) {
+        if (lista.get(i).getIdPrestamo().equals(prestamoActualizado.getIdPrestamo())) {
+            lista.set(i, prestamoActualizado);
+            try {
+                persistencia.guardarPrestamos(lista);
+            } catch (IOException e) {
+            }
+            break;
+        }
+    }
+}
+    
 
     public List<Prestamo> getPrestamos() {
         return sistema.getPrestamos();
