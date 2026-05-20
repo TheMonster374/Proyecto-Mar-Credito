@@ -1,10 +1,11 @@
 package marcredito.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Prestamo {
+public class Prestamo implements Serializable {
 
     private String idPrestamo;
     private final double monto;
@@ -16,14 +17,6 @@ public class Prestamo {
 
     private final List<Pago> pagos = new ArrayList<>();
 
-    /**
-     * Crea un préstamo.
-     *
-     * @param monto monto prestado
-     * @param acuerdo acuerdo del préstamo
-     * @param solicitante solicitante
-     * @param prestamista prestamista
-     */
     public Prestamo(double monto, Acuerdo acuerdo, Solicitante solicitante,  Prestamista prestamista) {
 
         this.idPrestamo = generarId();
@@ -36,9 +29,6 @@ public class Prestamo {
         this.prestamista = prestamista;
     }
 
-    /**
-     * Genera ID tipo P1234
-     */
     private String generarId() {
 
         Random random = new Random();
@@ -48,28 +38,16 @@ public class Prestamo {
         return "P" + numero;
     }
 
-    /**
-     * Registrar pago
-     * @param pago
-     */
     public void registrarPago(Pago pago) {
         pagos.add(pago);
     }
 
-    /**
-     * Total a pagar
-     * @return 
-     */
     public double calcularTotalPagar() {
 
         return monto +
                 (monto * acuerdo.getInteres() / 100);
     }
 
-    /**
-     * Resumen
-     * @return 
-     */
     public String resumen() {
 
         return "Prestamo: monto=" + monto

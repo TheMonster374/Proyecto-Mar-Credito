@@ -1,6 +1,8 @@
 package marcredito.model;
 
-public class Acuerdo {
+import java.io.Serializable;
+
+public class Acuerdo implements Serializable {
     private final double interes;
     private final int plazoMeses;
 

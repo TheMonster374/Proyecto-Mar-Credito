@@ -72,6 +72,10 @@ public class PQRS {
      * @param sistema sistema banco para consultas
      */
     public void procesar(SistemaBanco sistema) {
+        if (tipo == null) {
+            System.out.println("Tipo no válido");
+            return;
+    }
         switch (tipo) {
             case "RECLAMO":
                 List<Prestamo> prestamos = sistema.obtenerPrestamosDeUsuario(usuario);
