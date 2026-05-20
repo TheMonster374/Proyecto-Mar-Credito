@@ -12,7 +12,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Estado-En%20Desarrollo-22C55E?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Versión-1.5-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Versión-2.0-blue?style=for-the-badge">
   <img src="https://img.shields.io/badge/Java-(Logica)-orange?style=for-the-badge&logo=java">
 </p>
 
