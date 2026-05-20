@@ -1,5 +1,6 @@
 package marcredito.view;
 
+import java.io.IOException;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import marcredito.controller.ControladorBanco;
@@ -34,32 +35,37 @@ public class MenuSolicitante extends javax.swing.JFrame {
     
     
     private void configurarTabla() {
-        
-        DefaultTableModel nuevoModelo = new DefaultTableModel(
-            new Object[][]{},
-            new String[]{"ID", "Solicitante", "Monto", "Plazo", "Total", "Estado"}
-        ) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        
-        tablaSolicitudes.setModel(nuevoModelo);
+    DefaultTableModel nuevoModelo = new DefaultTableModel(
+        new Object[][]{},
+        new String[]{"ID", "Solicitante", "Monto", "Plazo", "Total", "Estado"}
+    ) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 
-        tablaSolicitudes.setEnabled(true);
-        tablaSolicitudes.setRowSelectionAllowed(true);
-        tablaSolicitudes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    tablaSolicitudes.setModel(nuevoModelo);
 
-        tablaSolicitudes.setTableHeader(null);
-        jScrollPane1.setColumnHeaderView(null);
+    tablaSolicitudes.setEnabled(true);
+    tablaSolicitudes.setRowSelectionAllowed(true);
+    tablaSolicitudes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        btnNuevaSolicitudMini1.addActionListener(e -> nuevaSolicitud());
-    }
+    tablaSolicitudes.setTableHeader(null);
+    jScrollPane1.setColumnHeaderView(null);
     
+    btnNuevaSolicitudMini1.addActionListener((java.awt.event.ActionEvent e) -> {
+        try {
+            nuevaSolicitud();
+        } catch (IOException ex) {
+            System.getLogger(MenuSolicitante.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+         }
+        });
+    }
     private void cargarSolicitudes() {
 
         DefaultTableModel modelo = (DefaultTableModel) tablaSolicitudes.getModel();
+        modelo.setRowCount(0); 
         List<Prestamo> prestamos = controller.obtenerPrestamosDeUsuario(solicitante.getId());
         
         for (Prestamo p : prestamos) {
@@ -69,13 +75,13 @@ public class MenuSolicitante extends javax.swing.JFrame {
                 solicitante.getNombre(),
                 p.getMonto(),
                 p.getAcuerdo().getPlazoMeses() + " meses",
-                p.getAcuerdo().getInteres(),
+                p.calcularTotalPagar(),
                 p.getEstado()
             });
         }
     }
     
-    private void nuevaSolicitud() {
+    private void nuevaSolicitud() throws IOException {
 
         marcredito.model.Prestamista prestamista = controller.obtenerPrimerPrestamista();
         
@@ -113,7 +119,7 @@ public class MenuSolicitante extends javax.swing.JFrame {
             return;
         }
         
-        controller.crearPrestamo(monto, plazo, monto+(monto * 0.05), solicitante.getId(), prestamista.getId());
+        controller.crearPrestamo(monto, plazo, 5.0, solicitante.getId(), prestamista.getId());
 
         cargarSolicitudes();
         actualizarVista();
@@ -237,7 +243,7 @@ public class MenuSolicitante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVerDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesActionPerformed
-         int fila = tablaSolicitudes.getSelectedRow();
+       int fila = tablaSolicitudes.getSelectedRow();
         if (fila < 0) {
             javax.swing.JOptionPane.showMessageDialog(this,
                 "Por favor selecciona una solicitud de la tabla.",
@@ -245,27 +251,42 @@ public class MenuSolicitante extends javax.swing.JFrame {
             return;
         }
         DefaultTableModel modelo = (DefaultTableModel) tablaSolicitudes.getModel();
-        String id       = String.valueOf(modelo.getValueAt(fila, 0));
-        String nombre   = String.valueOf(modelo.getValueAt(fila, 1));
-        String montoVal = String.valueOf(modelo.getValueAt(fila, 2));
-        String plazo    = String.valueOf(modelo.getValueAt(fila, 3));
-        String total  = String.valueOf(modelo.getValueAt(fila, 4));
-        String estado   = String.valueOf(modelo.getValueAt(fila, 5));
+        String id = String.valueOf(modelo.getValueAt(fila, 0));
+
+        Prestamo prestamo = null;
+        for (Prestamo p : controller.getPrestamos()) {
+            if (p.getIdPrestamo().equals(id)) {
+                prestamo = p;
+                break;
+            }
+        }
+        if (prestamo == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "No se encontró el préstamo.");
+            return;
+        }
 
         String mensaje = "ID: " + id + "\n"
-            + "Solicitante: " + nombre + "\n"
-            + "Monto: $" + montoVal + "\n"
-            + "Plazo: " + plazo + "\n"
-            + "Interés: " + "5%" + "\n"
-            + "Total a pagar: " + total + "\n"
-            + "Estado: " + estado;
+                + "Solicitante: " + prestamo.getSolicitante().getNombre() + "\n"
+                + "Monto: $" + prestamo.getMonto() + "\n"
+                + "Plazo: " + prestamo.getAcuerdo().getPlazoMeses() + " meses\n"
+                + "Interés: " + prestamo.getAcuerdo().getInteres() + "%\n"
+                + "Total a pagar: " + prestamo.calcularTotalPagar() + "\n"
+                + "Estado: " + prestamo.getEstado();
 
-        javax.swing.JOptionPane.showMessageDialog(this, mensaje,
-            "Detalles de la Solicitud", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        if (!prestamo.getEstado().equalsIgnoreCase("Pendiente")
+            && prestamo.getMotivo() != null && !prestamo.getMotivo().trim().isEmpty()) {
+            mensaje += "\nMotivo: " + prestamo.getMotivo();
+        }
+
+        javax.swing.JOptionPane.showMessageDialog(this, mensaje, "Detalles de la Solicitud", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnVerDetallesActionPerformed
 
     private void btnNuevaSolicitudGrandeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSolicitudGrandeActionPerformed
-        nuevaSolicitud();
+        try {
+            nuevaSolicitud();
+        } catch (IOException ex) {
+            System.getLogger(MenuSolicitante.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }//GEN-LAST:event_btnNuevaSolicitudGrandeActionPerformed
 
     private void tablaSolicitudesAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tablaSolicitudesAncestorAdded
