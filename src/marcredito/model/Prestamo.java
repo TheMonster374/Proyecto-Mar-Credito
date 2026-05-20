@@ -10,6 +10,7 @@ public class Prestamo implements Serializable {
     private String idPrestamo;
     private final double monto;
     private String estado;
+    private String motivo;
 
     private final Acuerdo acuerdo;
     private final Solicitante solicitante;
@@ -44,8 +45,7 @@ public class Prestamo implements Serializable {
 
     public double calcularTotalPagar() {
 
-        return monto +
-                (monto * acuerdo.getInteres() / 100);
+        return monto + (monto * acuerdo.getInteres() / 100);
     }
 
     public String resumen() {
@@ -55,6 +55,7 @@ public class Prestamo implements Serializable {
                 + " meses, interes=" + acuerdo.getInteres()
                 + "%, estado=" + estado
                 + ", solicitante=" + solicitante.getNombre()
+                + ", motivo=" + motivo
                 + ", prestamista=" + prestamista.getNombre();
     }
 
@@ -92,5 +93,12 @@ public class Prestamo implements Serializable {
 
     public List<Pago> getPagos() {
         return pagos;
+    }
+    
+    public String getMotivo() {
+        return motivo;
+    }
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
     }
 }
