@@ -23,8 +23,8 @@ public class App {
             sistema.agregarPrestamo(p);
         }
 
-        // Inicializar controlador con persistencia
-        ControladorBanco controller = new ControladorBanco(sistema, persistencia);        
+        ControladorBanco controller = new ControladorBanco(sistema, persistencia);
+
         java.awt.EventQueue.invokeLater(() -> {
             new Login(controller).setVisible(true);
         });
